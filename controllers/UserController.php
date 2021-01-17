@@ -7,7 +7,6 @@ use app\models\form\LoginForm;
 use app\models\form\RegisterForm;
 use app\models\Mailer;
 use app\models\User;
-use yii\web\Controller;
 use Yii;
 
 /**

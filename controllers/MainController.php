@@ -2,7 +2,6 @@
 namespace app\controllers;
 
 use app\models\Photo;
-use yii\web\Controller;
 use Yii;
 
 /**

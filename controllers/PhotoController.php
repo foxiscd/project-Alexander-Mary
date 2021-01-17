@@ -5,7 +5,6 @@ namespace app\controllers;
 use app\models\form\PhotoForm;
 use app\models\Photo;
 use app\models\User;
-use yii\web\Controller;
 use Yii;
 use yii\web\UploadedFile;
 

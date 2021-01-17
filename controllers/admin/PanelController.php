@@ -2,13 +2,13 @@
 
 namespace app\controllers\admin;
 
+use app\controllers\Controller;
 use app\models\form\PhotoForm;
 use app\models\form\PostForm;
 use app\models\Photo;
 use app\models\Post;
 use app\models\User;
 use yii\data\Pagination;
-use yii\web\Controller;
 use Yii;
 
 /**

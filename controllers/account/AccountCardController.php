@@ -3,9 +3,9 @@
 
 namespace app\controllers\account;
 
+use app\controllers\Controller;
 use app\models\account\AccountSetting;
 use app\models\User;
-use yii\web\Controller;
 use Yii;
 
 /**

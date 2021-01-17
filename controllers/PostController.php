@@ -6,7 +6,6 @@ use app\models\Photo;
 use app\models\Post;
 use app\models\User;
 use Yii;
-use yii\web\Controller;
 use yii\web\UploadedFile;
 
 class PostController extends Controller
