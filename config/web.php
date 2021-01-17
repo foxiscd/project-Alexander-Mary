@@ -35,20 +35,8 @@ $config = [
             'messageConfig' => [
                 'charset' => 'UTF-8',
             ],
-            'transport' => [
-                'class' => 'Swift_SmtpTransport',
-                'host' => 'smtp.gmail.com',
-                'username' => 'foxiscd74@gmail.com',
-                'password' => 'd3ikv0r0n12345678',
-                'port' => '587',
-                'encryption' => 'tls',
-                'streamOptions' => [
-                    'ssl' => [
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                    ],
-                ],
-            ],
+            // Mail account settings
+            'transport' => include_once __DIR__ . '/../settings.php',
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -71,7 +59,6 @@ $config = [
                 'price' => 'main/price',
                 'contacts' => 'main/contacts',
                 'user/<id:\d+>/activate/<code:.*>/' => 'user/activation',
-                'account/<id:\d+>' => 'account/account-card/index',
                 'photo/<id:\d+>/edit/' => 'photo/edit',
                 'photo/<id:\d+>/delete/' => 'photo/delete',
                 'post/<id:\d+>/detail/' => 'post/detail',
@@ -81,6 +68,7 @@ $config = [
                 'admin/posts' => 'admin/panel/posts',
                 'admin/photo' => 'admin/panel/photo',
                 'admin/help' => 'admin/panel/help',
+                'account/<id:\d+>' => 'account/account-card/index',
             ],
         ],
     ],
