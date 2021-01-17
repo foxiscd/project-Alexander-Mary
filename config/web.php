@@ -7,10 +7,12 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ruRu',
     'aliases' => [
         '@bower' => '@vendor/bower-asset',
-        '@npm'   => '@vendor/npm-asset',
+        '@npm' => '@vendor/npm-asset',
     ],
+    'layout' => 'default',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -19,19 +21,34 @@ $config = [
         'cache' => [
             'class' => 'yii\caching\FileCache',
         ],
-        /*'user' => [
+        'user' => [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => true,
-        ],*/
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+
         'mailer' => [
             'class' => 'yii\swiftmailer\Mailer',
-            // send all mails to a file by default. You have to set
-            // 'useFileTransport' to false and configure a transport
-            // for the mailer to send real emails.
-            'useFileTransport' => true,
+            'useFileTransport' => false,
+            'messageConfig' => [
+                'charset' => 'UTF-8',
+            ],
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'foxiscd74@gmail.com',
+                'password' => 'd3ikv0r0n12345678',
+                'port' => '587',
+                'encryption' => 'tls',
+                'streamOptions' => [
+                    'ssl' => [
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                    ],
+                ],
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -47,10 +64,27 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '/'=> 'main/index',
+                '/' => 'main/index',
+                '/portfolio' => 'main/portfolio',
+                '/price' => 'main/price',
+                '/contacts' => 'main/contacts',
+                'price' => 'main/price',
+                'contacts' => 'main/contacts',
+                'user/<id:\d+>/activate/<code:.*>/' => 'user/activation',
+                'account/<id:\d+>' => 'account/account-card/index',
+                'photo/<id:\d+>/edit/' => 'photo/edit',
+                'photo/<id:\d+>/delete/' => 'photo/delete',
+                'post/<id:\d+>/detail/' => 'post/detail',
+                'post/<id:\d+>/edit/' => 'post/edit',
+                'admin/panel/' => 'admin/panel/index',
+                'admin/accounts' => 'admin/panel/account-list',
+                'admin/posts' => 'admin/panel/posts',
+                'admin/photo' => 'admin/panel/photo',
+                'admin/help' => 'admin/panel/help',
             ],
         ],
     ],
+
     'params' => $params,
 ];
 

@@ -1,0 +1,515 @@
+.contact_blank {
+    text-align: left;
+    display: flex;
+    flex-direction: column;
+}
+
+.item {
+    margin-bottom: 20px;
+}
+
+.item span {
+    font-weight: bold;
+}
+
+.item a {
+    color: #0a73bb;
+}
+
+.item a:hover {
+    text-decoration: underline !important;
+}
+
+.inner div, .inner h1, .inner h2, .inner h3, .inner h4, .inner h5, .inner h6 {
+    color: black;
+}
+
+.color_white {
+    color: white !important;
+}
+
+h1 {
+    font-size: 32px;
+}
+
+h2 {
+    font-size: 24px;
+}
+
+h3 {
+    font-size: 19px;
+}
+
+h4 {
+    font-size: 16px;
+}
+
+html {
+    font-family: Arial !important;
+}
+
+#page-wrapper {
+    background-color: white;
+}
+
+div#menu {
+    overflow: hidden;
+    border-left: 1px solid rgba(0, 0, 0, 0.49);
+    background-color: rgba(255, 251, 251, 0.85);
+}
+
+#footer {
+    background-color: rgba(5, 5, 5, 0.54) !important;
+    position: relative;
+    width: 100%;
+    bottom: 0px;
+}
+
+.loginForm {
+    display: none;
+    color: #000000 !important;
+    border-top: 1px solid rgba(0, 0, 0, 0.8) !important;
+}
+
+.control-label {
+    color: black;
+    padding-bottom: 5px;
+    margin-bottom: 0px;
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+.header {
+    background-color: white !important;
+}
+
+#header {
+    background-color: rgba(5, 5, 5, 0.4) !important;
+}
+
+section#banner {
+    position: relative;
+    width: 100%;
+    margin-top: -60px;
+    background: url("../image/its_me.JPG") center center no-repeat;
+    background-size: 100%;
+}
+
+section#banner:before {
+    width: 100%;
+    min-width: 1000px;
+    height: 100%;
+    margin-right: 100%;
+    background-color: black;
+    content: '';
+    position: absolute;
+    opacity: 0.4;
+}
+
+.help-block {
+    font-size: 14px;
+    line-height: 1;
+}
+
+div.inner {
+    min-height: 65vh;
+    z-index: 1000;
+}
+
+.loginForm.active {
+    display: block;
+    color: black !important;
+}
+
+.butLogin {
+    background-color: #337ab7;
+    width: 100px;
+    text-align: center;
+    padding: 0 !important;
+}
+
+.vk-icon {
+    margin: auto;
+    width: 42px !important;
+    height: 42px !important;
+    /*background-color: black !important;*/
+    background: url("../image/Mezhdunarodny.png") center center no-repeat;
+    background-size: 42px;
+}
+
+.icon {
+    margin: auto;
+    width: 42px !important;
+    height: 42px !important;
+
+}
+
+.icon.vk {
+    background: url("../image/vkontakte.png") center center no-repeat;
+    background-size: 42px;
+}
+
+.icon.facebook {
+    background: url("../image/facebook.png") center center no-repeat;
+    background-size: 42px;
+}
+
+.icon.google {
+    background: url("../image/google.png") center center no-repeat;
+    background-size: 42px;
+}
+
+.icon:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.form-login {
+    width: 100%;
+    height: 320px;
+}
+
+hr {
+    margin: auto;
+}
+
+p {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+span {
+    font-size: 18px;
+}
+
+.icons-login {
+    text-align: left;
+    margin-top: 10px;
+}
+
+.row div {
+
+}
+
+.form-input {
+    padding-left: 15px;
+}
+
+.form {
+    text-align: left;
+}
+
+.help-block {
+    font-size: 14px;
+}
+
+label {
+    margin: 0px;
+}
+
+input:focus {
+    box-shadow: 0 0 20px gainsboro !important;
+}
+
+.item-button {
+    margin-right: 15px;
+}
+
+.items-card {
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+div.button label {
+    font-weight: 600;
+}
+
+div.button input {
+    all: unset;
+}
+
+.description-text {
+    margin: 0px;
+}
+
+.title-text {
+    margin: 0px;
+}
+
+.mini-menu-update .control-label {
+    margin: 0px;
+}
+
+.mini-menu-update div.button {
+    padding: 0px;
+    width: 100%;
+    background-color: #eceae7;
+}
+
+.mini-menu-update div.button:hover {
+    background-color: darkgrey !important;
+}
+
+.mini-menu-update {
+    display: none;
+    position: absolute;
+    float: left;
+    width: 200px;
+    line-height: 30px;
+    padding: 0px;
+    background-color: white;
+    font-size: 16px;
+}
+
+.mini-menu-update.active {
+    display: block !important;
+}
+
+.picture-button {
+    margin-top: 20px;
+    max-width: 100%;
+    max-height: 100%;
+    min-width: 200px;
+    min-height: 200px;
+    padding: 0px;
+
+}
+
+.picture-button:hover {
+    border: 1px solid black;
+}
+
+.picture-button .photo {
+    max-width: 200px;
+    max-height: 200px;
+    height: 200px;
+    width: auto;
+}
+
+.card-item {
+    padding-bottom: 10px;
+    border: 1px solid darkgrey;
+    border-radius: 20px;
+    margin-top: 10px;
+    margin-right: 30px;
+    padding-right: 15px;
+}
+
+
+div.update {
+
+}
+
+@media (max-width: 570px) {
+    .row.card-photo {
+        margin-right: 0px !important;
+    }
+
+    .place-button {
+        margin: auto;
+        padding-top: 20px;
+    }
+
+    .mini-menu-update {
+        left: auto;
+        position: relative;
+    }
+}
+
+form {
+    margin: 0px !important;
+    padding: 0px !important;
+    width: 100%;
+}
+
+.photo-form {
+    margin-bottom: 20px;
+}
+
+.container-menu {
+    max-width: 1400px;
+    margin: auto;
+    height: 60px;
+    margin-bottom: 60px;
+    display: block;
+}
+
+.admin_menu {
+    display: flex;
+    flex-wrap: nowrap;
+    position: relative;
+    top: 0;
+    height: 50px;
+    margin: auto;
+    max-width: 1400px;
+    justify-content: space-between;
+}
+
+.admin_menu .item_menu {
+    flex: 2;
+    border: 1px solid darkgrey;
+    margin-right: 5px;
+    margin-left: 5px;
+    border-radius: 5px;
+    line-height: 50px;
+    background: rgba(83, 83, 83, 0.62) linear-gradient(rgb(114, 120, 125), rgba(83, 83, 83, 0.62));
+    color: white;
+    list-style-type: none;
+}
+
+.admin_menu .item_menu:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: white;
+    text-decoration: underline;
+}
+
+@media (max-width: 570px) {
+    .admin_menu {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .container-menu {
+        height: auto;
+        margin: auto;
+        text-align: center;
+    }
+
+    .container-menu ul {
+        padding: 0px;
+        padding-bottom: 20px;
+    }
+
+    ul a {
+        margin: 2px;
+    }
+
+    #page-wrapper {
+        padding-top: 20px;
+    }
+
+    .items-card {
+        margin: auto;
+        margin-left: 0px !important;
+        margin-right: 0px !important;
+    }
+}
+
+body, input, select, textarea {
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+}
+
+.account_manager {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+}
+
+.photo-form {
+    text-align: left;
+}
+
+.file-input {
+    background-color: white !important;
+}
+
+.form-input {
+    padding-left: 15px;
+}
+
+.form {
+    text-align: left;
+}
+
+input {
+    border: 1px solid darkgray !important;
+    width: 50% !important;
+}
+
+.help-block {
+    font-size: 14px;
+}
+
+label {
+    margin: 0px;
+}
+
+input:focus {
+    box-shadow: 0 0 20px gainsboro !important;
+}
+
+.login_input {
+    width: 100% !important;
+    text-align: left;
+}
+
+input {
+    text-align: left;
+}
+
+.portfolio {
+    text-align: left;
+}
+
+.table_account_header {
+    font-weight: bold;
+    background-color: #95999c !important;
+    color: white;
+}
+
+div.image_flex {
+    display: flex;
+    flex-direction: inherit;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+div.image_flex img {
+    max-width: 400px;
+    padding: 10px 12px;
+    max-height: 250px;
+}
+
+.table_account_header td:after {
+    display: none;
+    content: '';
+    width: 10px;
+    height: 10px;
+    margin-left: 10px;
+    margin-top: 10px;
+    z-index: 100;
+    position: absolute;
+    background: url("/image/svg/arrow-black.svg") center center no-repeat;
+    background-size: 10px;
+}
+
+.table_account_header td.desc:after {
+    display: inline;
+    transform: rotate(180deg);
+}
+
+.table_account_header td.number:after {
+    background: none;
+}
+
+.table_account_header td.asc:after {
+    display: inline;
+    transform: rotate(0deg);
+}
+
+.search_form {
+    margin-bottom: 20px !important;
+}
+
+.search_form input {
+    color: black;
+}
+
+.acc_profile {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
