@@ -96,18 +96,21 @@ AppAsset::register($this);
                         <?php endif; ?>
                     <?php else: ?>
                         <!-- greeting -->
-                        <div style="text-align: left">
-                            <span>Привет, </span>
-                            <a href="<?= Url::to(['account/' . Yii::$app->user->id]) ?>">
-                                <?= Yii::$app->user->identity->nickname; ?>
-                            </a>
-                            <a href="<?= Url::to(['user/logout']) ?>">
-                                <button class="btn btn-success">Выйти</button>
-                            </a>
-                            <?php // admin panel ?>
+                        <div style="text-align: right">
+                            <div class="btn_account">
+                                <a href="<?= Url::to(['account/' . Yii::$app->user->id]) ?>">
+                                    <img class="avatar_img small"
+                                         style="background: url('<?= Yii::$app->user->identity->accountSetting->avatar ?>') center center no-repeat"
+                                         alt="">
+                                    <?= Yii::$app->user->identity->nickname; ?>
+                                </a>
+                                <a href="<?= Url::to(['user/logout']) ?>">
+                                    <button class="btn btn-success">Выйти</button>
+                                </a>
+                            </div>
                             <?php if (Yii::$app->user->identity->role == 'admin'): ?>
                                 <a href="<?= Url::to(['admin/panel/photo']) ?>">
-                                    <button class="btn btn-info">Панель администратора</button>
+                                    <button class="btn btn-info  btn_admin">Панель администратора</button>
                                 </a>
                             <? endif; ?>
                         </div>

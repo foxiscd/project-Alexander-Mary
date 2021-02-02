@@ -8,10 +8,6 @@
     margin-bottom: 20px;
 }
 
-.item span {
-    font-weight: bold;
-}
-
 .item a {
     color: #0a73bb;
 }
@@ -467,12 +463,6 @@ div.image_flex {
     flex-wrap: wrap;
 }
 
-div.image_flex img {
-    max-width: 400px;
-    padding: 10px 12px;
-    max-height: 250px;
-}
-
 .table_account_header td:after {
     display: none;
     content: '';
@@ -509,7 +499,163 @@ div.image_flex img {
 }
 
 .acc_profile {
-    display: flex;
-    flex-direction: column;
     text-align: left;
 }
+
+.acc_profile .form-group {
+    color: black;
+    max-height: 30px;
+    width: 70% !important;
+}
+
+.acc_profile label {
+    display: none;
+}
+
+.description_item {
+    font-weight: normal !important;
+    font-size: 16px;
+    width: 30%;
+    min-width: 200px;
+    text-align: center;
+}
+
+.item {
+    display: flex;
+    width: 100%;
+    line-height: 30px;
+}
+
+button.account-form {
+    max-height: 30px;
+    margin-left: 10px;
+    line-height: 20px;
+    padding: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+.form-group input {
+    width: 100% !important;
+}
+
+body, input, select, textarea {
+    letter-spacing: unset;
+}
+
+.avatar_img.small {
+    width: 30px;
+    height: 30px;
+    border-radius: 90%;
+    background-position: center;
+    margin-bottom: -7px;
+    background-size: 30px !important;
+}
+
+.btn_admin {
+    width: 100% !important;
+    margin: auto;
+    margin-top: 10px;
+}
+
+.btn_account {
+    text-align: left;
+    display: flex;
+    justify-content: space-between;
+}
+
+.training_box {
+    width: 100%;
+    height: auto;
+    min-height: 50px;
+    padding: 25px;
+    border: 1px solid darkgray;
+    border-radius: 30px;
+    text-align: center;
+}
+
+.training_box:hover {
+    box-shadow: 0 0 20px gainsboro;
+    transform: scale(1.02);
+}
+
+.account_img {
+    max-height: 300px;
+    border-radius: 10px;
+}
+
+.btn_account {
+    line-height: 43.5px;
+}
+
+.item.column {
+    flex-direction: column;
+}
+
+.form_file .form-group {
+    width: 100% !important;
+}
+
+.account_img_preview {
+    background-size: 200px !important;
+    width: 200px;
+    height: 200px;
+    border-radius: 90%;
+}
+
+.items > div {
+    margin-top: 20px;
+}
+
+#account_button {
+    display: none;
+}
+
+#account_button.active {
+    display: block;
+}
+
+/*portfolio*/
+
+div.image_flex > .portfolio_item {
+    max-width: 400px;
+    margin: 10px 12px;
+    max-height: 250px;
+    overflow: hidden;
+}
+
+
+div.image_flex img.portfolio_img {
+    max-width: 400px;
+    max-height: 250px;
+}
+
+img.portfolio_img:hover {
+    transition: 1s;
+    transform: scale(1.2);
+}
+
+.portfolio_img_title {
+    position: relative;
+    height: 60px;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .6);
+    z-index: 100;
+    margin-left: -400px;
+    margin-top: -60px;
+}
+
+.portfolio_item:hover > .portfolio_img_title {
+    transition: 0.5s;
+    overflow: hidden;
+    color: white;
+    margin-left: 0;
+}
+
+.portfolio_item:hover > .portfolio_img_title div {
+    transition: .5s;
+    color: white;
+    line-height: 25px;
+}
+
+/*portfolio end*/

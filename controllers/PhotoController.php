@@ -21,15 +21,19 @@ class PhotoController extends Controller
     public function actionAdd()
     {
         Yii::$app->view->title = 'Добавить фото';
+
         if (User::checkAdmin()) {
             $modelPhoto = new PhotoForm();
             $modelPhoto->scenario = PhotoForm::SCENARIO_ADD_PHOTO;
+
             if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
                 $modelPhoto->file = UploadedFile::getInstance($modelPhoto, 'file');
                 $modelPhoto->addPhoto();
             }
+
             return $this->render('add', ['modelPhoto' => $modelPhoto]);
         }
+
         Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
         return $this->redirect(['main/index']);
     }
@@ -42,6 +46,7 @@ class PhotoController extends Controller
     public function actionEdit(int $id)
     {
         Yii::$app->view->title = 'Изменить фото';
+
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {
 
@@ -53,9 +58,11 @@ class PhotoController extends Controller
                     $modelPhoto->file = UploadedFile::getInstance($modelPhoto, 'file');
                     return json_encode($modelPhoto->updatePhoto($photo) , JSON_UNESCAPED_UNICODE);
                 }
+
                 return false;
             }
         }
+
         Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
         $this->redirect(['main/index']);
     }
@@ -66,11 +73,13 @@ class PhotoController extends Controller
     public function actionDelete(int $id)
     {
         Yii::$app->view->title = 'Удалить фото';
+
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {
                 Photo::deletePhotoById($id);
             }
         }
+
     }
 
 }

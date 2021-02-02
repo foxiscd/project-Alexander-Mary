@@ -30,7 +30,8 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
                         </div>
                         <div class="mini-menu-update" data-picture="<?= $key ?>">
                             <div class="button">
-                                <?= $form->field($modelPhoto, 'file')->fileInput(['class' => 'picture-file', 'id' => 'photoForm-file' . $photo->id, 'placeholder' => 'Изменить']); ?>
+                                <?= $form->field($modelPhoto, 'file')
+                                    ->fileInput(['class' => 'picture-file', 'id' => 'photoForm-file' . $photo->id, 'placeholder' => 'Изменить']); ?>
                             </div>
 
                             <div class="button delete" id="<?= $photo->id ?>">
@@ -43,8 +44,10 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
                         </div>
                     </div>
                     <div class="col-md-7 card-data">
-                        <?= $form->field($modelPhoto, 'title')->textarea(['class' => 'title-text', 'data-content' => $photo->title, 'value' => $photo->title]); ?>
-                        <?= $form->field($modelPhoto, 'description')->textarea(['class' => 'description-text', 'data-content' => $photo->description, 'value' => $photo->description]); ?>
+                        <?= $form->field($modelPhoto, 'title')->
+                        textarea(['class' => 'title-text', 'data-content' => $photo->title, 'value' => $photo->title]); ?>
+                        <?= $form->field($modelPhoto, 'description')
+                            ->textarea(['class' => 'description-text', 'data-content' => $photo->description, 'value' => $photo->description]); ?>
                         <div class="row place-button">
                             <div class="col-sm-6"><?= $photo->updated_at ?></div>
                             <div class="col-sm-6 update">

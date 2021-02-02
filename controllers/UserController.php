@@ -17,7 +17,8 @@ class UserController extends Controller
 {
 
     /**
-     * @return string
+     * @return string|\yii\web\Response
+     * @throws \yii\base\Exception
      */
     public function actionRegister()
     {
@@ -83,8 +84,8 @@ class UserController extends Controller
     }
 
     /**
-     * @param $id
-     * @param $code
+     * @param string $id
+     * @param string $code
      */
     public function actionActivation(string $id ,string $code)
     {

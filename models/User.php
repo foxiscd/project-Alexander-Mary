@@ -3,17 +3,41 @@
 namespace app\models;
 
 use app\models\account\AccountSetting;
+use app\models\training\Student;
 use Yii;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+use app\models\training\Training;
 
+/**
+ * Class User
+ * @package app\models
+ *
+ * @property int $id
+ * @property string $email
+ * @property string $password_hash
+ * @property string $nickname
+ * @property string $auth_token
+ * @property int $activate_status
+ * @property string $activate_code
+ * @property string $create_at
+ * @property string $update_at
+ * @property string $role
+ * @property string $training_status
+ *
+ * @property Training $training
+ * @property Training[] $trainings
+ * @property AccountSetting[] $accountSettings
+ * @property AccountSetting $accountSetting
+ */
 class User extends ActiveRecord implements IdentityInterface
 {
+
     /**
-     * @param $email
+     * @param string $email
      * @return User|null
      */
-    public static function findByEmail($email)
+    public static function findByEmail(string $email)
     {
         return static::findOne(['email' => $email]);
     }
@@ -30,7 +54,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array|ActiveRecord[]
      */
-    public static function getAccountListByRequest($request, $limit)
+    public static function getAccountListByRequest(string $request,int $limit)
     {
         return self::find()->orderBy($request . 'DESC')->limit($limit)->all();
     }
@@ -46,7 +70,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return User|false|IdentityInterface|null
+     * @return User|false
      */
     public static function checkAdmin()
     {
@@ -57,7 +81,18 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return int|mixed|string|null
+     * @return bool
+     */
+    public static function checkUser(int $user_id)
+    {
+        if (Yii::$app->user->identity->getId() == $user_id){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return int|null
      */
     public function getId()
     {
@@ -65,7 +100,7 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @return mixed|string|null
+     * @return string|null
      */
     public function getAuthKey()
     {
@@ -76,7 +111,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param $password
      * @return bool
      */
-    public function validPassword($password)
+    public function validPassword(string $password)
     {
         return Yii::$app->security->validatePassword($password, $this->password_hash);
     }
@@ -94,7 +129,7 @@ class User extends ActiveRecord implements IdentityInterface
      * @param $activateStatus
      * @return bool
      */
-    public function validateStatus($activateStatus)
+    public function validateStatus(string $activateStatus)
     {
         return $this->activate_status == $activateStatus;
     }
@@ -149,12 +184,40 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->save();
     }
 
+    /**
+     * @return AccountSetting
+     */
     public function getAccountSetting()
     {
-        return $this->hasOne(AccountSetting::className(), ['user_id'=>'id']);
+        return $this->hasOne(AccountSetting::class, ['user_id' => 'id']);
     }
 
-    public function getParent() {
-        return $this->hasOne(self::className(), ['id' => 'user_id']);
+    /**
+     * @return Student
+     */
+    public function getStudent()
+    {
+        return $this->hasOne(Student::class, ['user_id' => 'id']);
     }
+
+    /**
+     * @return Student[]
+     */
+    public function getStudents()
+    {
+        return $this->hasMany(Student::class, ['user_id' => 'id']);
+    }
+
+    public function getTraining()
+    {
+        return $this->hasOne(Training::class, ['id' => 'training_id'])
+            ->viaTable(Student::tableName(), ['user_id' => 'id']);
+    }
+
+    public function getTrainings()
+    {
+        return $this->hasMany(Training::class, ['id' => 'training_id'])
+            ->viaTable(Student::tableName(), ['user_id' => 'id']);
+    }
+
 }

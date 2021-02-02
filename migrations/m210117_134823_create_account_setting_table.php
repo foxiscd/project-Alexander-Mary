@@ -16,8 +16,8 @@ class m210117_134823_create_account_setting_table extends Migration
             'id' => $this->primaryKey(),
             'user_id' => $this->integer()->notNull(),
             'avatar'=> $this->string(),
-            'about_me' => $this->string(150),
-            'phone' => $this->integer(),
+            'about_me' => $this->string(500),
+            'phone' => $this->string(12),
             'address' => $this->string(),
         ]);
     }

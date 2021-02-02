@@ -1,4 +1,5 @@
 <?php
+
 namespace app\controllers;
 
 use app\models\form\PostForm;
@@ -8,16 +9,27 @@ use app\models\User;
 use Yii;
 use yii\web\UploadedFile;
 
+/**
+ * Class PostController
+ * @package app\controllers
+ */
 class PostController extends Controller
 {
 
-    public function actionDetail($id)
+    /**
+     * @param int $id
+     * @return string
+     */
+    public function actionDetail(int $id)
     {
         $post = Post::findOne($id);
 
-        return $this->render('detail' , ['post'=>$post]);
+        return $this->render('detail', ['post' => $post]);
     }
 
+    /**
+     * @return string|\yii\web\Response
+     */
     public function actionAdd()
     {
         if (User::checkAdmin()) {
@@ -28,13 +40,19 @@ class PostController extends Controller
                 $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
                 $modelPost->addPost();
             }
+
             return $this->render('add', ['modelPost' => $modelPost]);
         }
+
         Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
         return $this->redirect(['main/index']);
     }
 
-    public function actionEdit($id)
+    /**
+     * @param int $id
+     * @return false|string
+     */
+    public function actionEdit(int $id)
     {
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {
@@ -45,8 +63,9 @@ class PostController extends Controller
                 if ($modelPost->load(Yii::$app->request->post()) && $modelPost->validate()) {
                     $post = Post::findOne($id);
                     $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
-                    return json_encode($modelPost->updatePost($post) , JSON_UNESCAPED_UNICODE);
+                    return json_encode($modelPost->updatePost($post), JSON_UNESCAPED_UNICODE);
                 }
+
                 return false;
             }
         }
@@ -54,7 +73,10 @@ class PostController extends Controller
         $this->redirect(['main/index']);
     }
 
-    public function actionDelete($id)
+    /**
+     * @param int $id
+     */
+    public function actionDelete(int $id)
     {
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {

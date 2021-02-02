@@ -7,6 +7,16 @@ use app\models\Photo;
 use yii\base\Model;
 use Yii;
 
+
+/**
+ * Class PhotoForm
+ * @package app\models\form
+ *
+ * @property string $directions
+ * @property string $file
+ * @property string $title
+ * @property string $description
+ */
 class PhotoForm extends Model
 {
     public $directions;
@@ -59,20 +69,22 @@ class PhotoForm extends Model
         $photo->title = $this->title;
         $photo->updated_at = date("Y-m-d H:i:s");
         $photo->created_at = date("Y-m-d H:i:s");
-            return $photo->save();
+        return $photo->save();
     }
 
     public function updatePhoto(Photo $photo)
     {
-        if ($this->file){
+        if ($this->file) {
             $url = Photo::PHOTO_PORTFOLIO_PATH . $this->file->baseName . '.' . $this->file->extension;
             $this->file->saveAs('../web' . $url);
             $photo->picture = $url;
         }
-        if ($this->title)
+        if ($this->title) {
             $photo->title = $this->title;
-        if ($this->description)
+        }
+        if ($this->description) {
             $photo->description = $this->description;
+        }
         $photo->updated_at = date("Y-m-d H:i:s");
         $photo->update();
         return $photo->getAttributes();

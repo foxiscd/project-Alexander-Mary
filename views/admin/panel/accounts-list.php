@@ -1,6 +1,6 @@
 <?php
 /**
- * @var $accounts \app\models\User
+ * @var $accounts \app\models\User[]
  */
 
 use yii\widgets\LinkPager;
@@ -33,6 +33,7 @@ include_once Yii::$app->getBasePath() . '/views/components/admin-menu.php';
             </td>
             <td id="column_create_at"><a href="?column=create_at&sort=<?= $sort ?>">Дата создания</a></td>
             <td id="column_role"><a href="?column=role&sort=<?= $sort ?>">Роль</a></td>
+            <td id="column_training_status">Статус обучения</td>
         </tr>
 
         <?php foreach ($accounts as $key => $account): ?>
@@ -44,6 +45,34 @@ include_once Yii::$app->getBasePath() . '/views/components/admin-menu.php';
                 <td><?= $account->activate_status ?></td>
                 <td><?= $account->create_at ?></td>
                 <td><?= $account->role ?></td>
+                <td>
+                    <?php if ($account->id != $account->student->user_id): ?>
+                        <div>Не обучается</div>
+                        <div>
+                            <a class="btn btn-success"
+                               href="<?= Url::to(['training-status/change/' . $account->id]) ?>">
+                                Добавить
+                            </a>
+                        </div>
+                    <?php else: ?>
+                        <div onclick="return activeCourse(this)">
+                            <div class="learns">
+                                <div>Обучается</div>
+                            </div>
+                            <div class="courses">
+                                <?php foreach ($account->trainings as $training): ?>
+                                    <div><?= mb_strimwidth($training->name, 0, 50, '...'); ?></div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="btn btn-success"
+                               href="<?= Url::to(['training-status/change/' . $account->id]) ?>">
+                                Добавить
+                            </a>
+                        </div>
+                    <?php endif; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
 
@@ -52,3 +81,34 @@ include_once Yii::$app->getBasePath() . '/views/components/admin-menu.php';
         'pagination' => $pages,
     ]); ?>
 </div>
+
+<style>
+    div.courses {
+        display: none;
+    }
+
+    div.active {
+        font-size: 10px;
+        font-family: Arial;
+        font-weight: normal;
+        letter-spacing: normal;
+        display: block !important;
+        background-color: white;
+    }
+
+    div.learns {
+        color: #4a7a00;
+        font-weight: bold;
+        text-decoration: underline;
+    }
+
+    div.learns > div {
+        cursor: pointer;
+    }
+</style>
+
+<script>
+    function activeCourse(e) {
+        e.querySelector('.courses').classList.toggle('active');
+    }
+</script>
