@@ -82,30 +82,6 @@ include_once Yii::$app->getBasePath() . '/views/components/admin-menu.php';
     ]); ?>
 </div>
 
-<style>
-    div.courses {
-        display: none;
-    }
-
-    div.active {
-        font-size: 10px;
-        font-family: Arial;
-        font-weight: normal;
-        letter-spacing: normal;
-        display: block !important;
-        background-color: white;
-    }
-
-    div.learns {
-        color: #4a7a00;
-        font-weight: bold;
-        text-decoration: underline;
-    }
-
-    div.learns > div {
-        cursor: pointer;
-    }
-</style>
 
 <script>
     function activeCourse(e) {
