@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\AlbumPhotoPortfolio;
 use app\models\Photo;
 use Yii;
 
@@ -28,8 +29,8 @@ class MainController extends Controller
     {
         $this->layout = 'default';
         Yii::$app->view->title = 'Мои работы';
-        $photos = Photo::getAllPhoto();
-        return $this->render('portfolio', ['photos' => $photos]);
+        $albums = AlbumPhotoPortfolio::find()->orderBy('sort')->all();
+        return $this->render('portfolio', ['albums' => $albums]);
     }
 
     /**

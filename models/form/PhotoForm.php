@@ -12,17 +12,13 @@ use Yii;
  * Class PhotoForm
  * @package app\models\form
  *
- * @property string $directions
+ * @property int $album_id
  * @property string $file
- * @property string $title
- * @property string $description
  */
 class PhotoForm extends Model
 {
-    public $directions;
     public $file;
-    public $title;
-    public $description;
+    public $album_id;
 
     const SCENARIO_UPDATE_PHOTO = 'update_photo';
     const SCENARIO_ADD_PHOTO = 'add_photo';
@@ -30,31 +26,24 @@ class PhotoForm extends Model
     public function scenarios()
     {
         return [
-            self::SCENARIO_ADD_PHOTO => ['file', 'directions', 'title', 'description'],
-            self::SCENARIO_UPDATE_PHOTO => ['file', 'title', 'description'],
+            self::SCENARIO_ADD_PHOTO => ['file', 'album_id'],
+            self::SCENARIO_UPDATE_PHOTO => ['file', 'album_id'],
         ];
     }
 
     public function attributeLabels()
     {
         return [
-            'directions' => 'Направление съемки',
             'file' => 'Загрузить',
-            'title' => 'Название',
-            'description' => 'Описание',
         ];
     }
 
     public function rules()
     {
         return [
-            [['directions'], 'required'],
-            [['directions'], 'string'],
             ['file', 'file', 'extensions' => 'png, jpeg, jpg'],
-            ['title', 'string', 'max' => '50'],
-            [['description', 'title'], 'trim'],
-            ['description', 'string'],
-            [['file', 'title', 'description'], 'safe', 'on' => self::SCENARIO_UPDATE_PHOTO],
+            ['album_id', 'string'],
+            [['file'], 'safe', 'on' => self::SCENARIO_UPDATE_PHOTO],
         ];
     }
 
@@ -63,10 +52,8 @@ class PhotoForm extends Model
         $url = Photo::PHOTO_PORTFOLIO_PATH . $this->file->baseName . '.' . $this->file->extension;
         $this->file->saveAs('../web' . $url);
         $photo = new Photo();
-        $photo->directions = $this->directions;
         $photo->picture = $url;
-        $photo->description = $this->description;
-        $photo->title = $this->title;
+        $photo->album_id = $this->album_id;
         $photo->updated_at = date("Y-m-d H:i:s");
         $photo->created_at = date("Y-m-d H:i:s");
         return $photo->save();
@@ -79,12 +66,7 @@ class PhotoForm extends Model
             $this->file->saveAs('../web' . $url);
             $photo->picture = $url;
         }
-        if ($this->title) {
-            $photo->title = $this->title;
-        }
-        if ($this->description) {
-            $photo->description = $this->description;
-        }
+        $photo->album_id = $this->album_id;
         $photo->updated_at = date("Y-m-d H:i:s");
         $photo->update();
         return $photo->getAttributes();

@@ -45,7 +45,6 @@ class PhotoController extends Controller
      */
     public function actionEdit(int $id)
     {
-        Yii::$app->view->title = 'Изменить фото';
 
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {
@@ -56,7 +55,7 @@ class PhotoController extends Controller
                 if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
                     $photo = Photo::findOne($id);
                     $modelPhoto->file = UploadedFile::getInstance($modelPhoto, 'file');
-                    return json_encode($modelPhoto->updatePhoto($photo) , JSON_UNESCAPED_UNICODE);
+                    return json_encode($modelPhoto->updatePhoto($photo), JSON_UNESCAPED_UNICODE);
                 }
 
                 return false;

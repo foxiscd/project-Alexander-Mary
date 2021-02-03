@@ -56,7 +56,6 @@ class PostController extends Controller
     {
         if (User::checkAdmin()) {
             if (Yii::$app->request->isAjax) {
-
                 $modelPost = new PostForm();
                 $modelPost->scenario = PostForm::SCENARIO_UPDATE_POST;
 
@@ -66,7 +65,7 @@ class PostController extends Controller
                     return json_encode($modelPost->updatePost($post), JSON_UNESCAPED_UNICODE);
                 }
 
-                return false;
+                echo 'error';
             }
         }
         Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');

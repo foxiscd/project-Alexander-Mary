@@ -1,19 +1,25 @@
 <?php
 /**
- * @var $photos \app\models\Photo
+ * @var $albums \app\models\AlbumPhotoPortfolio[]
  */
+
+use yii\helpers\Url;
+
 ?>
 
 <h1>Мои работы</h1>
 <div class="image_flex">
-    <?php foreach ($photos as $key => $photo): ?>
-        <div class="portfolio_item">
-            <a data-fancybox="gallery" data-caption="<?= $photo->title ?>" href="<?= $photo->picture ?>">
-                <img class="portfolio_img" src="<?= $photo->picture ?>" alt="<?= $photo->title ?>">
-            </a>
-            <div class="portfolio_img_title">
-                <div><?= $photo->title ?></div>
+    <?php foreach ($albums as $key => $album): ?>
+        <?php if ($album->hidden == 'false'): ?>
+            <div class="portfolio_item">
+                <a href="<?= Url::to(['album-photo-portfolio/' . $album->id . '/view']) ?>">
+                    <img class="portfolio_img" src="<?= $album->cover ?: '/image/file.png' ?>"
+                         alt="<?= $album->title ?>">
+                </a>
+                <div class="portfolio_img_title">
+                    <div><?= $album->title ?></div>
+                </div>
             </div>
-        </div>
+        <?php endif; ?>
     <?php endforeach; ?>
 </div>

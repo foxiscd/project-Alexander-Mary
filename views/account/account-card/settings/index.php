@@ -17,19 +17,19 @@ $trainings = $user->trainings;
 
 
         <div class="item">
-            <span class="description_item">Логин: </span>
+            <span class="description_item option">Логин: </span>
             <input onkeyup="addButtonForm(this)" name="nickname" type="text" value="<?= $user->nickname ?>">
         </div>
 
         <div class="item">
-            <span class="description_item">Email: </span>
+            <span class="description_item option">Email: </span>
             <span><?= $user->email ?></span>
         </div>
 
         <? $form = ActiveForm::begin(['action' => '/account-setting/' . $user->id . '/edit', 'method' => 'post']); ?>
 
         <div class="item">
-            <span class="description_item">Изображение: </span>
+            <span class="description_item option">Изображение: </span>
             <?php if (empty($settings->avatar)): ?>
                 <?= $form->field($model, 'avatar')
                     ->fileInput(['class' => 'picture-file', 'placeholder' => 'Изменить']); ?>
@@ -48,49 +48,49 @@ $trainings = $user->trainings;
         </div>
 
         <div class="item">
-            <span class="description_item">Телефон: </span>
+            <span class="description_item option">Телефон: </span>
             <?= $form->field($model, 'phone')
                 ->input('phone', ['value' => $settings->phone]); ?>
         </div>
 
         <div class="item">
-            <span class="description_item">Обо мне: </span>
+            <span class="description_item option">Обо мне: </span>
             <?= $form->field($model, 'about_me')
                 ->textarea(['value' => $settings->about_me]); ?>
         </div>
 
         <div class="item">
-            <span class="description_item">Имя: </span>
+            <span class="description_item option">Имя: </span>
             <?= $form->field($model, 'first_name')
                 ->input('text', ['value' => $settings->first_name]); ?>
         </div>
 
         <div class="item">
-            <span class="description_item">Фамилия: </span>
+            <span class="description_item option">Фамилия: </span>
             <?= $form->field($model, 'last_name')
                 ->input('text', ['value' => $settings->last_name]); ?>
         </div>
 
         <div class="item">
-            <span class="description_item">Дата рождения: </span>
+            <span class="description_item option">Дата рождения: </span>
             <?= $form->field($model, 'birthday')
                 ->input('date', ['value' => $settings->birthday]); ?>
         </div>
 
         <div class="item">
-            <span class="description_item">Адрес: </span>
+            <span class="description_item option">Адрес: </span>
             <?= $form->field($model, 'address')
                 ->input('text', ['value' => $settings->address]); ?>
         </div>
 
 
         <div class="item">
-            <span class="description_item">Дата активации: </span>
+            <span class="description_item option">Дата активации: </span>
             <span><?= $user->create_at ?></span>
         </div>
 
         <div class="item">
-            <div class="description_item"></div>
+            <div class="description_item option"></div>
             <div id="account_button">
                 <?= Html::submitButton('Сохранить', ['class' => 'btn']) ?>
                 <?php ActiveForm::end(); ?>
@@ -113,23 +113,3 @@ $trainings = $user->trainings;
         </div>
     </div>
 </div>
-
-<script>
-    $(document).ready(function () {
-        $('input').on('change', function () {
-            $('#account_button').addClass('active');
-        });
-        $('textarea').on('change', function () {
-            $('#account_button').addClass('active');
-        });
-    });
-</script>
-<style>
-    #account_button {
-        display: none;
-    }
-
-    #account_button.active {
-        display: block;
-    }
-</style>

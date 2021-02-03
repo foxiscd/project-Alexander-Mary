@@ -14,9 +14,7 @@ use Yii;
  * @property string $created_at
  * @property string $updated_at
  * @property string $picture
- * @property string $directions
- * @property string $description
- * @property string $title
+ * @property string $album_id
  */
 class Photo extends ActiveRecord
 {
@@ -50,16 +48,5 @@ class Photo extends ActiveRecord
         return $photo->delete();
     }
 
-    /**
-     * @return mixed
-     */
-    public function getDirectionRus()
-    {
-        $arrDirections = Yii::$app->params['directionsPhoto'];
-        foreach ($arrDirections as $key => $direction) {
-            if ($this->directions == $key) {
-                return $direction;
-            }
-        }
-    }
+
 }

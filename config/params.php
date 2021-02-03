@@ -14,7 +14,7 @@ return [
         'boudoir' => 'Будуарная',
         'nu' => 'Ню'
     ],
-    'adminPageSize' => 3,
+    'adminPageSize' => 10,
     'portfolioPageSize' => 6,
     'accountPageSize' => 10,
 ];

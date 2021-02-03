@@ -27,7 +27,8 @@ $trainings = $user->trainings;
         <?php if (Yii::$app->user->getId() == $user->id): ?>
             <div>
                 <a href="<?= Url::to(['account/' . Yii::$app->user->id . '/settings']); ?>">
-                    <button>Изменить</button>
+                    <button class="option">Настройки<i class="option"></i></button>
+
                 </a>
             </div>
         <?php endif; ?>
@@ -58,13 +59,3 @@ $trainings = $user->trainings;
     </div>
 </div>
 
-<script>
-    $(document).ready(function () {
-        $('input').on('change', function () {
-            $('#account_button').addClass('active');
-        });
-        $('textarea').on('change', function () {
-            $('#account_button').addClass('active');
-        });
-    });
-</script>

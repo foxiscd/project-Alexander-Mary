@@ -3,6 +3,7 @@
 namespace app\controllers\admin;
 
 use app\controllers\Controller;
+use app\models\AlbumPhotoPortfolio;
 use app\models\form\PhotoForm;
 use app\models\form\PostForm;
 use app\models\Photo;
@@ -39,16 +40,17 @@ class PanelController extends Controller
 
             $query = User::find();
             $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['accountPageSize']]);
-            $accounts = $query->offset($pages->offset)
-                ->limit($pages->limit)
-                ->orderBy($column . ' ' . $sort)
-                ->all();
             if (!empty($acc_search)) {
                 $query = User::find();
                 $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['accountPageSize']]);
                 $accounts = $query->offset($pages->offset)
                     ->limit($pages->limit)
                     ->where(['like', 'email', $acc_search])
+                    ->all();
+            } else {
+                $accounts = $query->offset($pages->offset)
+                    ->limit($pages->limit)
+                    ->orderBy($column . ' ' . $sort)
                     ->all();
             }
 
@@ -72,16 +74,22 @@ class PanelController extends Controller
     {
         if ($user = User::checkAdmin()) {
 
+            $albums = AlbumPhotoPortfolio::find()->all();
             $modelPhoto = new PhotoForm();
             $modelPhoto->scenario = PhotoForm::SCENARIO_UPDATE_PHOTO;
 
-            $query = Photo::find();
+            $query = Photo::find()->where('album_id = 0 OR album_id IS NULL');
             $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['adminPageSize']]);
             $photos = $query->offset($pages->offset)
                 ->limit($pages->limit)
                 ->all();
 
-            return $this->render('photo', ['photos' => $photos, 'pages' => $pages, 'modelPhoto' => $modelPhoto]);
+            return $this->render('photo', [
+                'photos' => $photos,
+                'pages' => $pages,
+                'modelPhoto' => $modelPhoto,
+                'albums' => $albums,
+            ]);
         }
         return $this->redirect(['main/index']);
     }
@@ -97,7 +105,7 @@ class PanelController extends Controller
             $modelPost->scenario = PhotoForm::SCENARIO_UPDATE_PHOTO;
 
             $query = Post::find();
-            $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['adminPageSize']]);
+            $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => '3']);
             $posts = $query->offset($pages->offset)
                 ->limit($pages->limit)
                 ->all();

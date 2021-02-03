@@ -16,7 +16,7 @@ class m201128_101348_create_post_table extends Migration
             'id' => $this->primaryKey(),
             'picture'=> $this->string(),
             'title'=> $this->string('255'),
-            'description'=> $this->string(),
+            'description'=> $this->text(),
             'theme'=> $this->string(),
             'author_id'=> $this->integer()->notNull(),
             'created_at'=>$this->date(),

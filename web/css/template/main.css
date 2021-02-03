@@ -2971,8 +2971,6 @@ button:disabled,
 .wrapper.style1 input[type="button"],
 .wrapper.style1 button,
 .wrapper.style1 .button {
-    box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.125);
-    color: #000000 ;
 }
 
 .wrapper.style1 input[type="submit"]:hover,
