@@ -115,6 +115,7 @@ div.inner {
 .loginForm.active {
     display: block;
     color: black !important;
+    background-color: unset;
 }
 
 .butLogin {
@@ -161,7 +162,8 @@ div.inner {
 
 .form-login {
     width: 100%;
-    height: 320px;
+    height: 280px;
+    overflow: hidden;
 }
 
 hr {
@@ -370,6 +372,9 @@ form {
 }
 
 @media (max-width: 570px) {
+    .container{
+        padding: 30px!important;
+    }
     .admin_menu {
         height: auto;
         flex-direction: column;
@@ -513,8 +518,8 @@ div.image_flex {
 }
 
 .acc_profile .form-group {
+    height: auto;
     color: black;
-    max-height: 30px;
     width: 70% !important;
 }
 
@@ -626,16 +631,17 @@ body, input, select, textarea {
 /*portfolio*/
 
 div.image_flex > .portfolio_item {
-    max-width: 400px;
+    max-width: 450px;
     margin: 10px 12px;
-    max-height: 250px;
+    max-height: 280px;
     overflow: hidden;
+    justify-content: space-around;
 }
 
 
 div.image_flex img.portfolio_img {
-    max-width: 400px;
-    max-height: 250px;
+    max-width: 450px;
+    max-height: 280px;
 }
 
 img.portfolio_img:hover {
@@ -649,7 +655,7 @@ img.portfolio_img:hover {
     width: 100%;
     background-color: rgba(0, 0, 0, .6);
     z-index: 100;
-    margin-left: -400px;
+    margin-left: -500px;
     margin-top: -60px;
 }
 
@@ -678,12 +684,12 @@ img.portfolio_img:hover {
 
 .album_img {
     width: 100px;
-    height: 100px;
     margin: auto;
 }
 
 .item {
     margin-top: 20px;
+    align-items: center;
 }
 
 .albums {
@@ -709,9 +715,6 @@ section {
     margin-top: 40px;
 }
 
-.option {
-    width: 30%;
-}
 
 .hidden {
     display: none;
@@ -754,8 +757,13 @@ button:hover {
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.5);
 }
 
+.option {
+    line-height: 40px;
+}
+
 button.option {
     display: flex;
+
 }
 
 i.option {
@@ -768,8 +776,11 @@ i.option {
     background-size: 20px;
 }
 
-.container {
-    width: 1400px;
+@media (min-width: 1200px) {
+    .container {
+        width: 100%;
+        max-width: 1400px;
+    }
 }
 
 div.courses {
@@ -777,7 +788,6 @@ div.courses {
 }
 
 div.active {
-    font-size: 10px;
     font-family: Arial;
     font-weight: normal;
     letter-spacing: normal;
@@ -793,4 +803,52 @@ div.learns {
 
 div.learns > div {
     cursor: pointer;
+}
+
+.image_box {
+    height: 100px;
+    overflow: hidden;
+    line-height: 170px;
+
+}
+
+.opacity {
+    opacity: 0.5;
+}
+
+section {
+    margin-bottom: 40px;
+}
+
+textarea {
+    padding: 10px;
+}
+
+button.fancybox-button {
+    color: white !important;
+}
+
+table, tr, td {
+    vertical-align: unset !important;
+}
+table td {
+    padding: 5px !important;
+}
+
+.albums .item {
+    margin: auto;
+    justify-content: space-between;
+}
+
+input[type="submit"], input[type="reset"], input[type="button"], button, .button{
+    font-size: 14px;
+    height: 40px;
+}
+
+ul li {
+    padding: 0px;
+}
+
+.item .form-group {
+    margin-bottom: 0px;
 }

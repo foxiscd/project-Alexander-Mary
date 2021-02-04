@@ -17,12 +17,14 @@ $trainings = $user->trainings;
     </div>
 
     <div class="items col-md-6">
-        <a data-fancybox="gallery" data-caption="<?= $settings->first_name ?>"
-           href="<?= $settings->avatar ?>">
-            <div class="account_img_preview"
-                 style="background: url('<?= $settings->avatar ?>') center center no-repeat">
-            </div>
-        </a>
+        <div>
+            <a data-fancybox="gallery" data-caption="<?= $settings->first_name ?>"
+               href="<?= $settings->avatar ?>">
+                <div class="account_img_preview"
+                     style="background: url('<?= $settings->avatar ?>') center center no-repeat">
+                </div>
+            </a>
+        </div>
 
         <?php if (Yii::$app->user->getId() == $user->id): ?>
             <div>

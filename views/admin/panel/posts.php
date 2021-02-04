@@ -1,7 +1,7 @@
 <?php
 /**
  * @var $modelPost \app\models\form\PostForm
- * @var $posts \app\models\Post
+ * @var $posts \app\models\Post[]
  */
 
 use yii\widgets\ActiveForm;
@@ -28,10 +28,10 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
                      data-id="<?= $post->id ?>">
                     <? $form = ActiveForm::begin(['action' => '/post/' . $post->id . '/edit', 'method' => 'post']); ?>
                     <div class="col-md-4 portfolio admin">
-                        <div class="picture-button button" data-id="<?= $key ?>">
+                        <div class="picture-button button" data-id="<?= $post->id ?>">
                             <img class="photo" src="<?= $post->picture ?>" alt="<?= $post->title ?>">
                         </div>
-                        <div class="mini-menu-update post" data-picture="<?= $key ?>">
+                        <div class="mini-menu-update post" data-picture="<?= $post->id ?>">
                             <div class="button">
                                 <?= $form->field($modelPost, 'file')->fileInput([
                                     'class' => 'picture-file',
@@ -90,12 +90,13 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
 
         //Menu-photo toggle
         $(document).on('click', function (e) {
-            if ((e.target).closest('.picture-button')) {
+            if ($(e).hasClass('.picture-button')) {
                 var idPicture = $(e.target).closest('.picture-button').data('id');
                 var pictures = $('.mini-menu-update');
                 $.each(pictures, function () {
-                    if ($(this).data('picture') == idPicture)
+                    if ($(this).data('picture') == idPicture) {
                         $(this).toggleClass('active');
+                    }
                 });
             } else if ($('.mini-menu-update').hasClass('active')) {
                 $('.mini-menu-update').removeClass('active');

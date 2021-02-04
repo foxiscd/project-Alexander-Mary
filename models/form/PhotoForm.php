@@ -6,6 +6,7 @@ namespace app\models\form;
 use app\models\Photo;
 use yii\base\Model;
 use Yii;
+use yii\web\UploadedFile;
 
 
 /**
@@ -13,7 +14,7 @@ use Yii;
  * @package app\models\form
  *
  * @property int $album_id
- * @property string $file
+ * @property UploadedFile[] $file
  */
 class PhotoForm extends Model
 {
@@ -41,22 +42,31 @@ class PhotoForm extends Model
     public function rules()
     {
         return [
-            ['file', 'file', 'extensions' => 'png, jpeg, jpg'],
+            [['file'], 'file', 'extensions' => 'png, jpeg, jpg', 'maxFiles' => 20, 'checkExtensionByMimeType' => false],
             ['album_id', 'string'],
-            [['file'], 'safe', 'on' => self::SCENARIO_UPDATE_PHOTO],
+            [['file'], 'file', 'extensions' => 'png, jpeg, jpg', 'on' => self::SCENARIO_UPDATE_PHOTO],
         ];
     }
 
     public function addPhoto()
     {
-        $url = Photo::PHOTO_PORTFOLIO_PATH . $this->file->baseName . '.' . $this->file->extension;
-        $this->file->saveAs('../web' . $url);
-        $photo = new Photo();
-        $photo->picture = $url;
-        $photo->album_id = $this->album_id;
-        $photo->updated_at = date("Y-m-d H:i:s");
-        $photo->created_at = date("Y-m-d H:i:s");
-        return $photo->save();
+        if ($this->validate()) {
+            foreach ($this->file as $file) {
+                $url = Photo::PHOTO_PORTFOLIO_PATH . $file->baseName . '.' . $file->extension;
+                $file->saveAs('../web' . $url);
+                $photo = new Photo();
+                $photo->picture = $url;
+                $photo->album_id = $this->album_id;
+                $photo->updated_at = date("Y-m-d H:i:s");
+                $photo->created_at = date("Y-m-d H:i:s");
+
+                if ($photo->save()) {
+                    continue;
+                }
+                return false;
+            }
+            return true;
+        }
     }
 
     public function updatePhoto(Photo $photo)

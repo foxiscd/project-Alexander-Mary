@@ -68,3 +68,9 @@ buttonLogin.addEventListener('click', function () {
     div.classList.toggle('active');
 });
 
+window.addEventListener('click', function () {
+    var div = document.querySelector('.loginForm');
+    if (div.classList.contains('active')) {
+        div.classList.remove('active');
+    }
+});

@@ -1,0 +1,141 @@
+@media (max-width: 400px) {
+    div.image_flex img.portfolio_img {
+        max-width: 100%;
+    }
+
+    a, p, span, div {
+        font-size: 14px;
+    }
+
+    .btn_account {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+    }
+
+    section#banner {
+        position: relative;
+        width: 100%;
+        margin-top: -60px;
+        background: url(../image/its_me.JPG) left 10% center no-repeat;
+        background-size: 250%;
+    }
+
+    section#banner:before {
+        width: 100%;
+        min-width: 1000px;
+        height: 100%;
+        left: 0px;
+        background-color: black;
+        content: '';
+        position: absolute;
+        opacity: 0.4;
+    }
+
+    .wrapper {
+        padding: 0px;
+    }
+
+    .item {
+        justify-content: space-between;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0px;
+        padding-right: 0px;
+        margin-bottom: 5px;
+    }
+
+    .items {
+        margin: auto;
+    }
+
+    input {
+        width: 100% !important;
+    }
+
+    .description_item {
+        min-width: unset !important;
+        text-align: left !important;
+    }
+
+    .account_img {
+        max-width: 100%;
+    }
+
+    textarea {
+        padding: 0px;
+        padding-bottom: 20px;
+    }
+
+    .card-item {
+        width: 100%;
+    }
+
+    div.image_flex > .portfolio_item {
+        max-height: unset;
+    }
+
+    div.image_flex img.portfolio_img {
+        max-height: unset;
+    }
+
+    .items {
+        text-align: center;
+        padding-left: 0px;
+    }
+
+    .items>div {
+        margin: 10px auto;
+    }
+
+    button.option {
+        margin: auto;
+    }
+    .account_img_preview {
+        margin: auto;
+    }
+    .picture-button{
+        width: 100%;
+    }
+}
+
+@media (min-width: 800px) {
+
+}
+
+@media (max-width: 1200px) {
+    section#banner {
+        position: relative;
+        width: 100%;
+        margin-top: -60px;
+        background: url(../image/its_me.JPG) left 10% center no-repeat;
+        background-size: 250%;
+    }
+
+    section#banner:before {
+        width: 100%;
+        min-width: 1000px;
+        height: 100%;
+        left: 0px;
+        background-color: black;
+        content: '';
+        position: absolute;
+        opacity: 0.4;
+    }
+
+    .description_item {
+        font-weight: normal !important;
+        font-size: 16px;
+        text-align: center;
+        min-width: 200px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .description_item {
+        font-weight: normal !important;
+        font-size: 16px;
+        text-align: center;
+        min-width: 200px;
+    }
+}

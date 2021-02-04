@@ -35,11 +35,16 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
             <h4 style="text-align: center">Альбомы</h4>
             <div class="image_flex albums">
                 <?php foreach ($albums as $album): ?>
-                    <div ondragover="allowDrow(event)" ondrop="drop(event, this)" data-id="<?= $album->id ?>">
+                    <div class="<?= ($album->hidden == 'true') ? 'opacity' : '' ?>"
+                         ondragover="allowDrow(event)"
+                         ondrop="drop(event, this)"
+                         data-id="<?= $album->id ?>">
                         <a href="<?= Url::to(['album-photo-portfolio/' . $album->id . '/edit']); ?>">
                             <div class="item column border-1 shadow scale">
-                                <img class="album_img" src="<?= $album->cover ?: '/image/file.png' ?>"
-                                     alt="<?= $album->title ?>">
+                                <div class="image_box">
+                                    <img class="album_img" src="<?= $album->cover ?: '/image/file.png' ?>"
+                                         alt="<?= $album->title ?>">
+                                </div>
                                 <div class="description_item albums">
                                     <?= $album->title ?>
                                 </div>
@@ -164,7 +169,6 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
         //Update data card
         function updateCard(model) {
             var item_card = $('.card-item[data-id=' + model.id + ']');
-            console.log(item_card);
             item_card.find('img.photo').attr('src', model.picture);
             item_card.find('img.photo').attr('alt', model.id);
         }
@@ -172,13 +176,12 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
         //Delete photo
         $('.delete').on('click', function () {
             var id = this.id;
-            console.log(id);
             if (confirm("Вы действитель хотите удалить фото?")) {
                 $.ajax({
                     method: 'get',
                     url: '/photo/' + id + '/delete',
                     success: function (data) {
-                        alert(data);
+                        $('.card-item[data-id=' + id + ']').remove();
                     }
                 });
             }

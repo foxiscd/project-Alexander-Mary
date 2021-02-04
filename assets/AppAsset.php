@@ -26,6 +26,7 @@ class AppAsset extends AssetBundle
 //        'css/template/fontawesome-all.min.css',
         'css/site.css',
         'css/main.css',
+        'css/media.css',
         'css/fancybox.css',
 //        'css/template/sass/nonscript.css',
 //        'css/template/sass/_functions.css',

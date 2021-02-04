@@ -50,22 +50,23 @@ AppAsset::register($this);
                         <li><a href="<?= Url::to(['main/contacts']); ?>">Контакты</a></li>
                     </ul>
                     <hr>
-
-                    <!-- login form -->
-                    <div class="form-login">
-                        <div class="loginForm">
-                            <?php $form = ActiveForm::begin(['action' => ['user/login']]) ?>
-                            <?= $form->field($modelLogin, 'email')->input('email', ['class' => 'login_input']); ?>
-                            <?= $form->field($modelLogin, 'password')->passwordInput(['class' => 'login_input']); ?>
-                            <?= Html::submitButton('Войти', ['class' => 'btn btn-success']); ?>
-                            <?php ActiveForm::end() ?>
-                        </div>
-                    </div>
-
                     <?php if (Yii::$app->user->isGuest): ?>
+                        <!-- login form -->
+                        <div class="loginForm">
+                            <div class="form-login">
+                                <?php $form = ActiveForm::begin(['action' => ['user/login']]) ?>
+                                <?= $form->field($modelLogin, 'email')->input('email', ['class' => 'login_input']); ?>
+                                <?= $form->field($modelLogin, 'password')->passwordInput(['class' => 'login_input']); ?>
+                                <?= Html::submitButton('Войти', ['class' => 'btn btn-success']); ?>
+                                <?php ActiveForm::end() ?>
+                            </div>
+                        </div>
+
                         <!-- auth button -->
                         <div class="btn_account">
-                            <button class="btn btn-success butLogin">Войти</button>
+                            <div>
+                                <button class="btn btn-success butLogin">Войти</button>
+                            </div>
 
                             <a href="<?= Url::to(['user/register']); ?>">
                                 <button class="btn btn-primary">Зарегестрироваться</button>

@@ -13,6 +13,12 @@ use yii\widgets\ActiveForm;
 <h1>Альбом <?= $album->title ?></h1>
 <div class="row">
     <div class="col-sm-4">
+        <h4>Изменить альбом</h4>
+        <div class="image_flex">
+            <div class="portfolio_item">
+                <img class="portfolio_img" src="<?= $album->cover ?>" alt="<?= $album->title ?>">
+            </div>
+        </div>
         <div>
             <?php $form = ActiveForm::begin(); ?>
             <?= $form->field($modelAlbum, 'title')->input('text', ['value' => $album->title]); ?>
@@ -28,15 +34,12 @@ use yii\widgets\ActiveForm;
         <?php foreach ($photos as $key => $photo): ?>
             <div class="portfolio_item picture-button" data-id="<?= $photo->id ?>">
                 <img class="portfolio_img" src="<?= $photo->picture ?>" alt="<?= $photo->id ?>">
-                <div class="portfolio_img_title">
-                    <div><?= $photo->created_at ?></div>
-                </div>
 
                 <div class="mini-menu-update  post" data-picture="<?= $photo->id ?>">
                     <div class="button" onclick="return addCover(this)" data-value="<?= $photo->picture ?>">
                         Добавить на обложку
                     </div>
-                    <div class="button delete" id="<?= $photo->id ?>">
+                    <div class="button delete" onclick="return deleteAlbumId(this)" id="<?= $photo->id ?>">
                         Удалить
                     </div>
                 </div>
@@ -48,10 +51,23 @@ use yii\widgets\ActiveForm;
 <script>
     function addCover(block) {
         var path = $(block).data('value');
-        console.log(path);
         var input = $(document).find('input[data-target=cover]');
         input.val(path);
         $('button.hidden').addClass('active');
+    }
+
+    function deleteAlbumId(block) {
+        var photo_id = $(block).attr('id');
+        var album = 'delete_album';
+        $.ajax({
+            method: 'post',
+            url: '/photo/' + photo_id + '/edit',
+            data: {album: album},
+            success: function (data) {
+                var photo = JSON.parse(data)
+                $('div.portfolio_item[data-id=' + photo.id + ']').remove();
+            }
+        });
     }
 </script>
 
