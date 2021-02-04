@@ -16,7 +16,7 @@ $trainings = $user->trainings;
 
     </div>
 
-    <div class="items col-md-6">
+    <div class="items column col-md-6">
         <div>
             <a data-fancybox="gallery" data-caption="<?= $settings->first_name ?>"
                href="<?= $settings->avatar ?>">

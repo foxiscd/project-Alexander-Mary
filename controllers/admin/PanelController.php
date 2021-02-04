@@ -11,6 +11,7 @@ use app\models\Post;
 use app\models\User;
 use yii\data\Pagination;
 use Yii;
+use yii\db\Query;
 
 /**
  * Class PanelController

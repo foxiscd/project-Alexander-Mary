@@ -21,6 +21,7 @@ use yii\db\ActiveRecord;
 class AccountSetting extends ActiveRecord
 {
     const ACCOUNT_AVATAR_PATH = '/image/uploads/account/';
+    const ACCOUNT_AVATAR_DEFAULT = '/image/man.jpg';
 
 
     /**

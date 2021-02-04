@@ -9,6 +9,18 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
+function getPosition($val)
+{
+    switch ($val) {
+        case ('true'):
+            return '0';
+            break;
+        case ('false'):
+            return '1';
+            break;
+    }
+}
+
 ?>
 <h1>Альбом <?= $album->title ?></h1>
 <div class="row">
@@ -25,7 +37,7 @@ use yii\widgets\ActiveForm;
             <?= $form->field($modelAlbum, 'description')->input('text', ['value' => $album->description]); ?>
             <?= $form->field($modelAlbum, 'cover')->input('text', ['value' => $album->cover, 'data-target' => 'cover']); ?>
             <?= $form->field($modelAlbum, 'sort')->input('text', ['value' => $album->sort]); ?>
-            <?= $form->field($modelAlbum, 'hidden')->dropDownList(['false' => 'Нет', 'true' => 'Да'], ['default' => $album->hidden]); ?>
+            <?= $form->field($modelAlbum, 'hidden')->dropDownList(['false' => 'Нет', 'true' => 'Да'], [ 'default' => $album->hidden]); ?>
             <?= Html::submitButton('Сохранить', ['class' => 'btn hidden']) ?>
             <?php ActiveForm::end(); ?>
         </div>
@@ -33,7 +45,7 @@ use yii\widgets\ActiveForm;
     <div class="image_flex col-sm-8">
         <?php foreach ($photos as $key => $photo): ?>
             <div class="portfolio_item picture-button" data-id="<?= $photo->id ?>">
-                <img class="portfolio_img" src="<?= $photo->picture ?>" alt="<?= $photo->id ?>">
+                <img class="photo scale" src="<?= $photo->picture ?>" alt="<?= $photo->id ?>">
 
                 <div class="mini-menu-update  post" data-picture="<?= $photo->id ?>">
                     <div class="button" onclick="return addCover(this)" data-value="<?= $photo->picture ?>">

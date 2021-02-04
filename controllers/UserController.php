@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\api\Vkontakte;
+use app\models\form\AccountSettingForm;
 use app\models\form\LoginForm;
 use app\models\form\RegisterForm;
 use app\models\Mailer;
@@ -87,10 +88,14 @@ class UserController extends Controller
      * @param string $id
      * @param string $code
      */
-    public function actionActivation(string $id ,string $code)
+    public function actionActivation(string $id, string $code)
     {
-        if ($user = User::findIdentity($id)){
+        if ($user = User::findIdentity($id)) {
             $user->activateAccount($code);
+            if (Yii::$app->user->login($user)) {
+                $model = new AccountSettingForm();
+                $model->add();
+            }
         }
         $this->redirect(['main/index']);
     }

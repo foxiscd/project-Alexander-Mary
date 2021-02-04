@@ -268,39 +268,42 @@ div.button input {
 
 .mini-menu-update.active {
     display: block !important;
-    margin-top: 210px;
+    padding-top: 15px;
+    margin-top: 195px;
     background: unset;
 }
 
 .mini-menu-update.post.active {
-    margin-top: 0px;
+    margin-top: -160px;
 }
 
 .picture-button {
-    max-width: 100%;
-    max-height: 100%;
-    min-width: 200px;
-    min-height: 200px;
+    width: 200px;
+    height: 200px !important;
     padding: 0px;
+    overflow: hidden;
+    line-height: 310px !important;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 7px;
 }
 
 .picture-button:hover {
-    border: 1px solid black;
+    transition: 0.3;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
 }
 
 .picture-button .photo {
-    max-width: 200px;
-    max-height: 200px;
-    height: 200px;
+    max-height: 100%;
+    max-width: 100%;
     width: auto;
 }
 
 .card-item {
-    padding-bottom: 10px;
+    /*padding-bottom: 10px;*/
     border-radius: 20px;
-    margin-top: 10px;
-    margin-right: 30px;
-    padding-right: 15px;
+    /*margin-top: 10px;*/
+    /*margin-right: 30px;*/
+    /*padding-right: 15px;*/
 }
 
 
@@ -536,7 +539,8 @@ div.image_flex {
 .item {
     display: flex;
     line-height: 30px;
-    margin-left: 20px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 button.account-form {
@@ -683,8 +687,9 @@ img.portfolio_img:hover {
 }
 
 .album_img {
-    width: 100px;
+    max-width: 100%;
     margin: auto;
+    border-radius: 5px;
 }
 
 .item {
@@ -698,13 +703,13 @@ img.portfolio_img:hover {
 }
 
 .border-1 {
-    padding: 10px;
+    padding: 10px !important;
     border-radius: 5px;
 }
 
 .border-1:hover {
     transition: .3s;
-    border: 1px solid darkgray;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .left {
@@ -741,6 +746,7 @@ section {
 }
 
 .scale:hover {
+    transition: 0.5s;
     transform: scale(1.1) !important;
 }
 
@@ -806,10 +812,11 @@ div.learns > div {
 }
 
 .image_box {
-    height: 100px;
+    height: 110px;
+    max-width: 110px;
+    line-height: 180px;
+    border-radius: 5px;
     overflow: hidden;
-    line-height: 170px;
-
 }
 
 .opacity {
@@ -851,4 +858,25 @@ ul li {
 
 .item .form-group {
     margin-bottom: 0px;
+}
+
+.padding {
+    padding: 5px !important;
+}
+.padding-2 {
+    padding: 10px !important;
+}
+
+.items {
+    display: flex;
+    max-width: 100%;
+    flex-wrap: wrap;
+}
+
+.column {
+    flex-direction: column;
+}
+
+.m_top_0 {
+    margin-top: 0px !important;
 }

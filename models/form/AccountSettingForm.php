@@ -58,14 +58,18 @@ class AccountSettingForm extends Model
 
     public function add()
     {
-        $url = AccountSetting::ACCOUNT_AVATAR_PATH;
-        $url .= Yii::$app->user->id;
-        mkdir(Yii::$app->basePath . '/web' . $url);
-        $url .= '/' . $this->avatar->baseName . '.' . $this->avatar->extension;
-        $this->avatar->saveAs('../web' . $url);
+        if ($this->avatar) {
+            $url = AccountSetting::ACCOUNT_AVATAR_PATH;
+            $url .= Yii::$app->user->id;
+            mkdir(Yii::$app->basePath . '/web' . $url);
+            $url .= '/' . $this->avatar->baseName . '.' . $this->avatar->extension;
+            $this->avatar->saveAs('../web' . $url);
+        } else {
+            $url = AccountSetting::ACCOUNT_AVATAR_DEFAULT;
+        }
         $setting = new AccountSetting();
         $setting->user_id = Yii::$app->user->id;
-        $setting->avatar = $url;
+        $setting->avatar = $url ?: '';
         $setting->about_me = $this->about_me;
         $setting->phone = $this->phone;
         $setting->address = $this->address;

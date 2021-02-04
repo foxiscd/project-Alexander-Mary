@@ -33,7 +33,7 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
         <div class="col-md-6 photo-form">
             <!--    ALBUM COLUMN    -->
             <h4 style="text-align: center">Альбомы</h4>
-            <div class="image_flex albums">
+            <div class="image_flex albums" style="margin-top: 41px!important;">
                 <?php foreach ($albums as $album): ?>
                     <div class="<?= ($album->hidden == 'true') ? 'opacity' : '' ?>"
                          ondragover="allowDrow(event)"
@@ -58,12 +58,12 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
         <div class="col-md-6" style="padding-top: 10px">
             <!--    PHOTO COLUMN    -->
             <h4 style="margin: auto">Не распределенные фотографии</h4>
-            <div class="row items">
+            <div class="items">
                 <?php foreach ($photos as $key => $photo): ?>
                     <div class="card-item" draggable="true" ondragstart="drag(event ,this)" data-id="<?= $photo->id ?>">
                         <? $form = ActiveForm::begin(['action' => '/photo/' . $photo->id . '/edit', 'method' => 'post']); ?>
-                        <div class="item column align-center portfolio admin shadow radius">
-                            <div class="picture-button button" data-id="<?= $key ?>">
+                        <div class="item column align-center portfolio admin scale ">
+                            <div class="picture-button button padding" data-id="<?= $key ?>">
                                 <img draggable="false" class="photo" src="<?= $photo->picture ?>" alt="">
                             </div>
 

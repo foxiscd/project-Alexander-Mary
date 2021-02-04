@@ -24,14 +24,14 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
         <div class="row items-card">
             <?php if (!empty($posts)): ?>
             <?php foreach ($posts as $key => $post): ?>
-                <div class="col-md-12 row card-item item border-1 shadow-active"
+                <div class="col-md-12 row card-item padding-2 item shadow-active"
                      data-id="<?= $post->id ?>">
                     <? $form = ActiveForm::begin(['action' => '/post/' . $post->id . '/edit', 'method' => 'post']); ?>
                     <div class="col-md-4 portfolio admin">
                         <div class="picture-button button" data-id="<?= $post->id ?>">
                             <img class="photo" src="<?= $post->picture ?>" alt="<?= $post->title ?>">
                         </div>
-                        <div class="mini-menu-update post" data-picture="<?= $post->id ?>">
+                        <div class="mini-menu-update m_top_0" data-picture="<?= $post->id ?>">
                             <div class="button">
                                 <?= $form->field($modelPost, 'file')->fileInput([
                                     'class' => 'picture-file',

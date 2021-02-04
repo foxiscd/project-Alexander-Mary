@@ -30,5 +30,8 @@ tests/_output/*
 tests/_support/_generated
 settings.php
 
+#images
+web/image/uploads
+
 #vagrant folder
 /.vagrant

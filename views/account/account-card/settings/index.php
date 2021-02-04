@@ -98,8 +98,8 @@ $trainings = $user->trainings;
         </div>
     </div>
 
-    <div class="items col-md-6">
-        <div class="item course">
+    <div class="items column col-md-6">
+        <div class="item c course">
             <span class="description_item">Доступные курсы: </span>
             <span>
             <?php foreach ($trainings as $training): ?>

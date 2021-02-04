@@ -1,4 +1,8 @@
 @media (max-width: 400px) {
+    .col-md-6 {
+        padding: 0px !important;
+    }
+
     div.image_flex img.portfolio_img {
         max-width: 100%;
     }
