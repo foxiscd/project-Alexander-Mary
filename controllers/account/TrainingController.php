@@ -13,7 +13,6 @@ class TrainingController extends Controller
 {
     public function actionChange(int $id)
     {
-        $user = User::findOne($id);
         if (User::checkAdmin()) {
             if ($status_code = Yii::$app->request->get('status_code')) {
                 $student = new Student();
@@ -23,7 +22,7 @@ class TrainingController extends Controller
                 Yii::$app->session->setFlash('error', 'Ошибка записи, попробуйте снова');
             } else {
                 $trainings = Training::find()->all();
-                return $this->render('change', ['trainings' => $trainings, 'user' => $user]);
+                return $this->render('change', ['trainings' => $trainings, 'user' => User::findOne($id)]);
             }
         }
     }

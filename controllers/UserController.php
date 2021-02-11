@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\api\Vkontakte;
+use app\models\AlbumPhotoPortfolio;
 use app\models\form\AccountSettingForm;
 use app\models\form\LoginForm;
 use app\models\form\RegisterForm;
@@ -24,6 +25,7 @@ class UserController extends Controller
     public function actionRegister()
     {
         $model = new RegisterForm();
+        $model->scenario = RegisterForm::SCENARIO_REGISTER;
 
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($user = $model->save()) {
@@ -42,7 +44,6 @@ class UserController extends Controller
     public function actionLogin()
     {
         $model = new LoginForm();
-
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->redirect(['main/index']);
         }
@@ -52,19 +53,16 @@ class UserController extends Controller
     /**
      * @return \yii\web\Response
      */
-    public function actionLoginVk()
+    public function actionLoginVk(string $code = null)
     {
-        $code = Yii::$app->request->get('code');
-
-        if (!$code) {
-            Yii::$app->session->setFlash('error', 'Ошибка авторизации, попробуйте снова, либо совершие вход через регистрацию пользователя');
-            return $this->redirect(['main/index']);
+        if (empty($code)) {
+            $url = Vkontakte::authorizeUrl();
+            return $this->redirect($url);
         }
 
-        $user = new User();
         $data = Vkontakte::dataAccess($code);
-
         if (isset($data['email'])) {
+            $user = new User();
             if (User::findByEmail($data['email'])) {
                 $user->loginVk($data);
             } else {
@@ -73,7 +71,6 @@ class UserController extends Controller
         } else {
             Yii::$app->session->setFlash('error', 'Ошибка авторизаци, попробуйте снова');
         }
-
         return $this->redirect(['main/index']);
     }
 
@@ -98,6 +95,35 @@ class UserController extends Controller
             }
         }
         $this->redirect(['main/index']);
+    }
+
+    public function actionRefreshPassword()
+    {
+        $model = new RegisterForm();
+        $model->scenario = RegisterForm::SCENARIO_REFRESH_PASSWORD;
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            if ($model->refreshPassword()) {
+                Yii::$app->session->setFlash('success', 'Перейдите по ссылке, которая пришла на указанный Email');
+            } else {
+                if (empty(Yii::$app->session->getFlash('error'))) {
+                    Yii::$app->session->setFlash('error', 'Пользователя с указаным email не существует');
+                }
+            }
+        }
+        return $this->render('refresh-password', ['model' => $model]);
+    }
+
+    public function actionRefresh(int $id, string $token)
+    {
+        $model = new RegisterForm();
+        $model->scenario = RegisterForm::SCENARIO_NEW_PASSWORD;
+        if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+            $user = User::findOne($id);
+            if ($user->auth_token == $token && $model->newPassword($user)) {
+                return $this->redirect(['main/index']);
+            }
+        }
+        return $this->render('refresh', ['model' => $model]);
     }
 
 }

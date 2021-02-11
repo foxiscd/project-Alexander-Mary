@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\AlbumPhotoPortfolio;
 use app\models\Photo;
+use app\models\Training;
 use Yii;
 
 /**
@@ -27,7 +28,6 @@ class MainController extends Controller
      */
     public function actionPortfolio()
     {
-        $this->layout = 'default';
         Yii::$app->view->title = 'Мои работы';
         $albums = AlbumPhotoPortfolio::find()->orderBy('sort')->all();
         return $this->render('portfolio', ['albums' => $albums]);
@@ -49,6 +49,13 @@ class MainController extends Controller
     {
         Yii::$app->view->title = 'Контакты';
         return $this->render('contacts');
+    }
+
+    public function actionTraining()
+    {
+        Yii::$app->view->title = 'Обучение';
+        $courses = Training::find()->all();
+        return $this->render('training', ['courses'=>$courses]);
     }
 
 }

@@ -45,7 +45,9 @@ class Photo extends ActiveRecord
     public static function deletePhotoById(int $id)
     {
         $photo = self::findOne($id);
-        unlink($_SERVER['DOCUMENT_ROOT'].$photo->picture);
+        if (is_file($_SERVER['DOCUMENT_ROOT'] . $photo->picture)) {
+            unlink($_SERVER['DOCUMENT_ROOT'] . $photo->picture);
+        }
         return $photo->delete();
     }
 

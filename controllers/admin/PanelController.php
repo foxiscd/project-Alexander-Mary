@@ -43,7 +43,6 @@ class PanelController extends Controller
             $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['accountPageSize']]);
             if (!empty($acc_search)) {
                 $query = User::find();
-                $pages = new Pagination(['totalCount' => $query->count(), 'pageSize' => Yii::$app->params['accountPageSize']]);
                 $accounts = $query->offset($pages->offset)
                     ->limit($pages->limit)
                     ->where(['like', 'email', $acc_search])

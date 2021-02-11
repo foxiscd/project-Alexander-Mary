@@ -134,25 +134,7 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->activate_status == $activateStatus;
     }
 
-    /**
-     * @param $data
-     * @return bool
-     */
-    public function registerVk(array $data): bool
-    {
-        $this->email = $data['email'];
-        $this->password_hash = self::getRandomPassword();
-        $this->nickname = $data['nickname'] ?: $data['first_name'];
-        $this->auth_token = $data['access_token'];
-        $this->activate_status = Yii::$app->params['statusVk'];
-        $this->create_at = date("Y-m-d H:i:s");
-        $this->update_at = date("Y-m-d H:i:s");
-        if ($this->save()) {
-            Yii::$app->user->login($this);
-            return true;
-        }
-        return false;
-    }
+
 
     /**
      * @return string
@@ -208,16 +190,43 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->hasMany(Student::class, ['user_id' => 'id']);
     }
 
+    /**
+     * @return Training
+     * @throws \yii\base\InvalidConfigException
+     */
     public function getTraining()
     {
         return $this->hasOne(Training::class, ['id' => 'training_id'])
             ->viaTable(Student::tableName(), ['user_id' => 'id']);
     }
 
+    /**
+     * * @return Training[]
+     * @throws \yii\base\InvalidConfigException
+     */
     public function getTrainings()
     {
         return $this->hasMany(Training::class, ['id' => 'training_id'])
             ->viaTable(Student::tableName(), ['user_id' => 'id']);
     }
 
+    /**
+     * @param $data
+     * @return bool
+     */
+    public function registerVk(array $data): bool
+    {
+        $this->email = $data['email'];
+        $this->password_hash = self::getRandomPassword();
+        $this->nickname = $data['nickname'] ?: $data['first_name'];
+        $this->auth_token = $data['access_token'];
+        $this->activate_status = Yii::$app->params['statusVk'];
+        $this->create_at = date("Y-m-d H:i:s");
+        $this->update_at = date("Y-m-d H:i:s");
+        if ($this->save()) {
+            Yii::$app->user->login($this);
+            return true;
+        }
+        return false;
+    }
 }

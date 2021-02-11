@@ -37,6 +37,7 @@ class AlbumPhotoPortfolioController extends Controller
     {
         $album = AlbumPhotoPortfolio::findOne($id);
         $photos = Photo::find()->where('album_id = ' . $id)->all();
+
         return $this->render('view', ['album' => $album, 'photos' => $photos]);
     }
 
@@ -50,9 +51,10 @@ class AlbumPhotoPortfolioController extends Controller
                 $modelAlbum->updateAlbum($album);
             }
             $photos = Photo::find()->where('album_id = ' . $id)->all();
-            return $this->render('edit', ['album' => $album, 'photos' => $photos, 'modelAlbum'=>$modelAlbum]);
+            return $this->render('edit', ['album' => $album, 'photos' => $photos, 'modelAlbum' => $modelAlbum]);
         }
 
+        Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
         return $this->redirect(['main/index']);
     }
 }

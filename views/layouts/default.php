@@ -46,7 +46,7 @@ AppAsset::register($this);
                         <li><a href="<?= Url::to(['main/portfolio']); ?>">Мои работы</a></li>
                         <li><a href="#">Советы для клиента</a></li>
                         <li><a href="<?= Url::to(['main/price']); ?>">Стоимость</a></li>
-                        <li><a href="#">Обучение</a></li>
+                        <li><a href="<?= Url::to(['main/training']); ?>">Обучение</a></li>
                         <li><a href="<?= Url::to(['main/contacts']); ?>">Контакты</a></li>
                     </ul>
                     <hr>
@@ -78,7 +78,7 @@ AppAsset::register($this);
                                 <p>Войти через</p>
                                 <div class="row">
                                     <div style="float: left">
-                                        <a href="<?= Vkontakte::authorizeUrl() ?>">
+                                        <a href="<?= Url::to(['user/login-vk']) ?>">
                                             <div class="icon vk"></div>
                                         </a>
                                     </div>

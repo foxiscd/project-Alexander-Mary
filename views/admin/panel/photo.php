@@ -42,7 +42,7 @@ include Yii::$app->getBasePath() . '/views/components/admin-menu.php'
                         <a href="<?= Url::to(['album-photo-portfolio/' . $album->id . '/edit']); ?>">
                             <div class="item column border-1 shadow scale">
                                 <div class="image_box">
-                                    <img class="album_img" src="<?= $album->cover ?: '/image/file.png' ?>"
+                                    <img class="album_img" width="600px" src="<?= $album->cover ?: '/image/file.png' ?>"
                                          alt="<?= $album->title ?>">
                                 </div>
                                 <div class="description_item albums">

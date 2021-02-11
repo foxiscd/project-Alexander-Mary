@@ -2,6 +2,7 @@
 
 namespace app\models\form;
 
+use app\models\Mailer;
 use Yii;
 use app\models\User;
 use yii\base\Model;

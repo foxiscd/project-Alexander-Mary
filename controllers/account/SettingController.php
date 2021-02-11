@@ -23,15 +23,17 @@ class SettingController extends Controller
     {
         if (User::checkUser($user_id)) {
             $model = new AccountSettingForm();
+
             if ($model->load(Yii::$app->request->post()) && $model->validate()) {
+
+                $model->avatar = UploadedFile::getInstance($model, 'avatar');
                 if ($setting = AccountSetting::find()->where('user_id = ' . $user_id)->one()) {
-                    $model->avatar = UploadedFile::getInstance($model, 'avatar');
                     return json_encode($model->update($setting), JSON_UNESCAPED_UNICODE);
                 } else {
-                    $model->avatar = UploadedFile::getInstance($model, 'avatar');
                     return json_encode($model->add(), JSON_UNESCAPED_UNICODE);
                 }
             }
+
             return false;
         }
 

@@ -16,7 +16,6 @@ class Controller extends \yii\web\Controller
      */
     public function getLoginForm()
     {
-        $model = new LoginForm();
-        return $model;
+        return new LoginForm();
     }
 }

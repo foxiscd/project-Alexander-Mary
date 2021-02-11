@@ -2,6 +2,7 @@
 
 namespace app\models\form;
 
+use app\models\Mailer;
 use Yii;
 use app\models\User;
 use yii\base\Model;
@@ -16,6 +17,19 @@ class RegisterForm extends Model
     public $email;
     public $password;
     public $repeat_password;
+
+    const SCENARIO_REFRESH_PASSWORD = 'refresh-password';
+    const SCENARIO_REGISTER = 'register';
+    const SCENARIO_NEW_PASSWORD = 'new-password';
+
+    public function scenarios()
+    {
+        return [
+            self::SCENARIO_REFRESH_PASSWORD => ['email'],
+            self::SCENARIO_REGISTER => ['password', 'email', 'nickname', 'repeat_password'],
+            self::SCENARIO_NEW_PASSWORD => ['password', 'repeat_password'],
+        ];
+    }
 
     public function attributeLabels()
     {
@@ -65,4 +79,28 @@ class RegisterForm extends Model
         return false;
     }
 
+    public function refreshPassword()
+    {
+        if (!empty($this->email) && $this->validate()) {
+            if ($user = User::findByEmail($this->email)) {
+                if (Mailer::sendMailRefreshPassword($user)) {
+                    return true;
+                } else {
+                    Yii::$app->session->setFlash('error', 'Ошибка отправки сообщения');
+                }
+            }
+        }
+        return false;
+    }
+
+    public function newPassword(User $user)
+    {
+        if (!empty($this->password) && $this->validate()) {
+            $user->password_hash = Yii::$app->security->generatePasswordHash($this->password);
+            $user->activate_status = Yii::$app->params['statusRegister'];
+            $user->auth_token = Yii::$app->security->generateRandomString(32);
+            return $user->save();
+        }
+        return false;
+    }
 }
