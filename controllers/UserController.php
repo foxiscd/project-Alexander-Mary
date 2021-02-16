@@ -10,6 +10,7 @@ use app\models\form\RegisterForm;
 use app\models\Mailer;
 use app\models\User;
 use Yii;
+use app\components\AuthHandler;
 
 /**
  * Class UserController
@@ -17,6 +18,21 @@ use Yii;
  */
 class UserController extends Controller
 {
+
+    public function actions()
+    {
+        return [
+          'auth' => [
+              'class' => 'yii\authclient\AuthAction',
+              'successCallback' => [$this, 'onAuthSuccess'],
+          ]
+        ];
+    }
+
+    public function onAuthSuccess($client)
+    {
+        (new AuthHandler($client))->handle();
+    }
 
     /**
      * @return string|\yii\web\Response

@@ -83,7 +83,7 @@ AppAsset::register($this);
                                         </a>
                                     </div>
                                     <div style="float: left">
-                                        <a href="#">
+                                        <a href="<?= Url::to(['user/auth', 'authclient' => 'facebook']) ?>">
                                             <div class="icon facebook"></div>
                                         </a>
                                     </div>

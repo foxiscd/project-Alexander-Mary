@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use app\controllers\behaviors\AccessBehavior;
+use app\controllers\Controller;
 use app\models\account\AccountSetting;
 use app\models\training\Student;
 use Yii;
@@ -33,6 +35,7 @@ use app\models\training\Training;
 class User extends ActiveRecord implements IdentityInterface
 {
 
+
     /**
      * @param string $email
      * @return User|null
@@ -54,7 +57,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @return array|ActiveRecord[]
      */
-    public static function getAccountListByRequest(string $request,int $limit)
+    public static function getAccountListByRequest(string $request, int $limit)
     {
         return self::find()->orderBy($request . 'DESC')->limit($limit)->all();
     }
@@ -69,23 +72,13 @@ class User extends ActiveRecord implements IdentityInterface
         return static::findOne(['auth_token' => $token]);
     }
 
-    /**
-     * @return User|false
-     */
-    public static function checkAdmin()
-    {
-        $user = self::findIdentity(Yii::$app->user->getId());
-        if ($user->role == 'admin')
-            return $user;
-        return false;
-    }
 
     /**
      * @return bool
      */
     public static function checkUser(int $user_id)
     {
-        if (Yii::$app->user->identity->getId() == $user_id){
+        if (Yii::$app->user->identity->getId() == $user_id) {
             return true;
         }
         return false;
@@ -133,7 +126,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->activate_status == $activateStatus;
     }
-
 
 
     /**

@@ -38,6 +38,22 @@ $config = [
             // Mail account settings
             'transport' => include_once __DIR__ . '/../settings.php',
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                /*'google' => [
+                    'class' => 'yii\authclient\clients\Google',
+                    'clientId' => '815036095490-0p8hsh8ofh7ah3o526n6n6c77uhrguun.apps.googleusercontent.com',
+                    'clientSecret' => 'YIk3EoT7rqnQq9CMXbqeJ7es',
+                ],*/
+                'facebook' => [
+                    'class' => 'yii\authclient\clients\Facebook',
+                    'clientId' => '1126320451122703',
+                    'clientSecret' => 'e2a7eb824609fc78c2d4ad50ef22df82',
+                ],
+                // etc.
+            ],
+        ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
             'targets' => [
@@ -56,6 +72,7 @@ $config = [
                 'portfolio' => 'main/portfolio',
                 'contacts' => 'main/contacts',
                 'price' => 'main/price',
+                'confidentiality' => 'main/confidentiality',
                 'user/<id:\d+>/activate/<code:.*>/' => 'user/activation',
                 'user/login-vk' => 'user/login-vk',
                 'user/refresh-password' => 'user/refresh-password',

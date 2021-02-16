@@ -10,7 +10,7 @@ class Vkontakte
 {
     public static $apiId = '7653745';
     public static $secretKey = 'QBI0uZbXKUnYgWHL3Tw4';
-    public static $url = 'http://alexandrova.mary/user/login-vk';
+    public static $url = 'https://alexandrova.mary/user/login-vk';
     public static $token;
     public static $params = [];
     public static $userId;

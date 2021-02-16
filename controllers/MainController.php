@@ -58,4 +58,10 @@ class MainController extends Controller
         return $this->render('training', ['courses'=>$courses]);
     }
 
+    public function actionConfidentiality()
+    {
+        Yii::$app->view->title = 'Политика конфиденциальности';
+        return $this->render('confidentiality');
+    }
+
 }

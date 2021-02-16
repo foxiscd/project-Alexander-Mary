@@ -94,6 +94,10 @@ AppAsset::register($this);
                                     </div>
                                 </div>
                             </div>
+                            <?= yii\authclient\widgets\AuthChoice::widget([
+                                'baseAuthUrl' => ['user/auth'],
+                                'popupMode' => false,
+                            ]) ?>
                         <?php endif; ?>
                     <?php else: ?>
                         <!-- greeting -->
