@@ -10,6 +10,9 @@ use yii\web\Controller;
 class AccessBehavior extends Behavior
 {
 
+    /**
+     * @return string[]
+     */
     public function events()
     {
         return [
@@ -18,6 +21,9 @@ class AccessBehavior extends Behavior
     }
 
 
+    /**
+     * @return \yii\web\Response
+     */
     public function checkAdminAccess()
     {
         $user = User::findIdentity(Yii::$app->user->getId());

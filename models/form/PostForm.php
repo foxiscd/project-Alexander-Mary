@@ -3,6 +3,7 @@
 
 namespace app\models\form;
 
+use app\components\FileHandler;
 use app\models\Photo;
 use app\models\Post;
 use phpDocumentor\Reflection\Types\This;
@@ -51,13 +52,9 @@ class PostForm extends Model
 
     public function addPost()
     {
-        $url = Post::PICTURE_POST_PATH . $this->file->baseName . '.' . $this->file->extension;
         $post = new Post();
-
-        if ($this->file->saveAs('../web' . $url)) {
-            $post->picture = $url;
-        }
-
+        $url = FileHandler::saveFile($this->file, $post);
+        $post->picture = $url;
         $post->theme = $this->theme;
         $post->description = $this->description;
         $post->title = $this->title;
@@ -70,19 +67,16 @@ class PostForm extends Model
     public function updatePost(Post $post)
     {
         if ($this->file) {
-            $url = Photo::PHOTO_PORTFOLIO_PATH . $this->file->baseName . '.' . $this->file->extension;
-            if ($this->file->saveAs('../web' . $url))
-                $post->picture = $url;
+            FileHandler::deleteFile($post->getPicture());
+            $url = FileHandler::saveFile($this->file, $post);
         }
-        if ($this->theme)
-            $post->theme = $this->theme;
-        if ($this->title)
-            $post->title = $this->title;
-        if ($this->description)
-            $post->description = $this->description;
-
+        $post->picture = $url;
+        $post->theme = $this->theme;
+        $post->title = $this->title;
+        $post->description = $this->description;
         $post->updated_at = date("Y-m-d H:i:s");
         $post->update();
+
         return $post->getAttributes();
     }
 

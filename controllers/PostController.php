@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\controllers\behaviors\AccessBehavior;
 use app\models\form\PostForm;
 use app\models\Photo;
 use app\models\Post;
@@ -15,6 +16,14 @@ use yii\web\UploadedFile;
  */
 class PostController extends Controller
 {
+
+    public function behaviors()
+    {
+        return [
+            AccessBehavior::class,
+        ];
+    }
+
 
     /**
      * @param int $id
@@ -32,20 +41,15 @@ class PostController extends Controller
      */
     public function actionAdd()
     {
-        if (User::checkAdmin()) {
-            $modelPost = new PostForm();
-            $modelPost->scenario = PostForm::SCENARIO_ADD_POST;
+        $modelPost = new PostForm();
+        $modelPost->scenario = PostForm::SCENARIO_ADD_POST;
 
-            if ($modelPost->load(Yii::$app->request->post()) && $modelPost->validate()) {
-                $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
-                $modelPost->addPost();
-            }
-
-            return $this->render('add', ['modelPost' => $modelPost]);
+        if ($modelPost->load(Yii::$app->request->post()) && $modelPost->validate()) {
+            $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
+            $modelPost->addPost();
         }
 
-        Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
-        return $this->redirect(['main/index']);
+        return $this->render('add', ['modelPost' => $modelPost]);
     }
 
     /**
@@ -54,22 +58,18 @@ class PostController extends Controller
      */
     public function actionEdit(int $id)
     {
-        if (User::checkAdmin()) {
-            if (Yii::$app->request->isAjax) {
-                $modelPost = new PostForm();
-                $modelPost->scenario = PostForm::SCENARIO_UPDATE_POST;
+        if (Yii::$app->request->isAjax) {
+            $modelPost = new PostForm();
+            $modelPost->scenario = PostForm::SCENARIO_UPDATE_POST;
 
-                if ($modelPost->load(Yii::$app->request->post()) && $modelPost->validate()) {
-                    $post = Post::findOne($id);
-                    $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
-                    return json_encode($modelPost->updatePost($post), JSON_UNESCAPED_UNICODE);
-                }
-
-                echo 'error';
+            if ($modelPost->load(Yii::$app->request->post()) && $modelPost->validate()) {
+                $post = Post::findOne($id);
+                $modelPost->file = UploadedFile::getInstance($modelPost, 'file');
+                return json_encode($modelPost->updatePost($post), JSON_UNESCAPED_UNICODE);
             }
+
+            echo 'error';
         }
-        Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
-        $this->redirect(['main/index']);
     }
 
     /**
@@ -77,10 +77,8 @@ class PostController extends Controller
      */
     public function actionDelete(int $id)
     {
-        if (User::checkAdmin()) {
-            if (Yii::$app->request->isAjax) {
-                Photo::deletePhotoById($id);
-            }
+        if (Yii::$app->request->isAjax) {
+            Photo::deletePhotoById($id);
         }
     }
 

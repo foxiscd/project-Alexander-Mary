@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\controllers\behaviors\AccessBehavior;
 use app\models\form\PhotoForm;
 use app\models\Photo;
 use app\models\User;
@@ -15,27 +16,30 @@ use yii\web\UploadedFile;
 class PhotoController extends Controller
 {
 
+    public function behaviors()
+    {
+        return [
+            AccessBehavior::class,
+        ];
+    }
+
     /**
      * @return string|\yii\web\Response
      */
     public function actionAdd()
     {
         Yii::$app->view->title = 'Добавить фото';
-        if (User::checkAdmin()) {
-            $modelPhoto = new PhotoForm();
-            $modelPhoto->scenario = PhotoForm::SCENARIO_ADD_PHOTO;
-            if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
-                $modelPhoto->file = UploadedFile::getInstances($modelPhoto, 'file');
-                $modelPhoto->addPhoto();
 
-                return $this->redirect(['admin/panel/photo']);
-            }
+        $modelPhoto = new PhotoForm();
+        $modelPhoto->scenario = PhotoForm::SCENARIO_ADD_PHOTO;
+        if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
+            $modelPhoto->file = UploadedFile::getInstances($modelPhoto, 'file');
+            $modelPhoto->addPhoto();
 
-            return $this->render('add', ['modelPhoto' => $modelPhoto]);
+            return $this->redirect(['admin/panel/photo']);
         }
 
-        Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
-        return $this->redirect(['main/index']);
+        return $this->render('add', ['modelPhoto' => $modelPhoto]);
     }
 
 
@@ -45,27 +49,21 @@ class PhotoController extends Controller
      */
     public function actionEdit(int $id)
     {
+        if (Yii::$app->request->isAjax) {
+            $modelPhoto = new PhotoForm();
+            $modelPhoto->scenario = PhotoForm::SCENARIO_UPDATE_PHOTO;
+            $photo = Photo::findOne($id);
 
-        if (User::checkAdmin()) {
-            if (Yii::$app->request->isAjax) {
-                $modelPhoto = new PhotoForm();
-                $modelPhoto->scenario = PhotoForm::SCENARIO_UPDATE_PHOTO;
-                $photo = Photo::findOne($id);
-
-                if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
-                    $modelPhoto->file = UploadedFile::getInstance($modelPhoto, 'file');
-                    return json_encode($modelPhoto->updatePhoto($photo), JSON_UNESCAPED_UNICODE);
-                } elseif (Yii::$app->request->post('album') == 'delete_album') {
-                    $photo->deleteAlbumId();
-                    return json_encode($photo->getAttributes(), JSON_UNESCAPED_UNICODE);
-                }
-
-                return false;
+            if ($modelPhoto->load(Yii::$app->request->post()) && $modelPhoto->validate()) {
+                $modelPhoto->file = UploadedFile::getInstance($modelPhoto, 'file');
+                return json_encode($modelPhoto->updatePhoto($photo), JSON_UNESCAPED_UNICODE);
+            } elseif (Yii::$app->request->post('album') == 'delete_album') {
+                $photo->deleteAlbumId();
+                return json_encode($photo->getAttributes(), JSON_UNESCAPED_UNICODE);
             }
-        }
 
-        Yii::$app->session->setFlash('error', 'Вы не являетесь администратором');
-        $this->redirect(['main/index']);
+            return false;
+        }
     }
 
     /**
@@ -73,14 +71,9 @@ class PhotoController extends Controller
      */
     public function actionDelete(int $id)
     {
-        Yii::$app->view->title = 'Удалить фото';
-
-        if (User::checkAdmin()) {
-            if (Yii::$app->request->isAjax) {
-                Photo::deletePhotoById($id);
-            }
+        if (Yii::$app->request->isAjax) {
+            Photo::deletePhotoById($id);
         }
-
     }
 
 }

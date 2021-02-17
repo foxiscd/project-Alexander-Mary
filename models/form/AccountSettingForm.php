@@ -2,6 +2,7 @@
 
 namespace app\models\form;
 
+use app\components\FileHandler;
 use app\models\account\AccountSetting;
 use Yii;
 use app\models\User;
@@ -58,18 +59,14 @@ class AccountSettingForm extends Model
 
     public function add()
     {
+        $setting = new AccountSetting();
         if ($this->avatar) {
-            $url = AccountSetting::ACCOUNT_AVATAR_PATH;
-            $url .= Yii::$app->user->id;
-            mkdir(Yii::$app->basePath . '/web' . $url);
-            $url .= '/' . $this->avatar->baseName . '.' . $this->avatar->extension;
-            $this->avatar->saveAs('../web' . $url);
+            $url = FileHandler::saveFile($this->avatar, $setting);
         } else {
             $url = AccountSetting::ACCOUNT_AVATAR_DEFAULT;
         }
-        $setting = new AccountSetting();
         $setting->user_id = Yii::$app->user->id;
-        $setting->avatar = $url ?: '';
+        $setting->avatar = $url;
         $setting->about_me = $this->about_me;
         $setting->phone = $this->phone;
         $setting->address = $this->address;
@@ -85,15 +82,10 @@ class AccountSettingForm extends Model
     public function update(AccountSetting $setting)
     {
         if ($this->avatar) {
-            $url = AccountSetting::ACCOUNT_AVATAR_PATH;
-            $url .= Yii::$app->user->id;
-            if (!is_dir(Yii::$app->basePath . '/web' . $url)) {
-                mkdir(Yii::$app->basePath . '/web' . $url);
-            }
-            $url .= '/' . $this->avatar->baseName . '.' . $this->avatar->extension;
-            $this->avatar->saveAs('../web' . $url);
-            $setting->avatar = $url;
+            FileHandler::deleteFile($setting->avatar);
+            $url = FileHandler::saveFile($this->avatar, $setting);
         }
+        $setting->avatar = $url;
         $setting->about_me = $this->about_me;
         $setting->phone = $this->phone;
         $setting->address = $this->address;

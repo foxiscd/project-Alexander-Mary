@@ -3,6 +3,8 @@
 
 namespace app\models\form;
 
+use app\components\FileHandler;
+use app\components\ImageHandlerInterface;
 use app\models\Photo;
 use yii\base\Model;
 use Yii;
@@ -42,8 +44,8 @@ class PhotoForm extends Model
     public function rules()
     {
         return [
-            [['file'], 'file', 'extensions' => 'png, jpeg, jpg', 'maxFiles' => 20, 'checkExtensionByMimeType' => false],
             ['album_id', 'string'],
+            [['file'], 'file', 'extensions' => 'png, jpeg, jpg', 'maxFiles' => 20, 'checkExtensionByMimeType' => false],
             [['file'], 'file', 'extensions' => 'png, jpeg, jpg', 'on' => self::SCENARIO_UPDATE_PHOTO],
         ];
     }
@@ -52,9 +54,8 @@ class PhotoForm extends Model
     {
         if ($this->validate()) {
             foreach ($this->file as $file) {
-                $url = Photo::PHOTO_PORTFOLIO_PATH . $file->baseName . '.' . $file->extension;
-                $file->saveAs('../web' . $url);
                 $photo = new Photo();
+                $url = FileHandler::saveFile($file, $photo);
                 $photo->picture = $url;
                 $photo->album_id = $this->album_id;
                 $photo->updated_at = date("Y-m-d H:i:s");
@@ -72,10 +73,10 @@ class PhotoForm extends Model
     public function updatePhoto(Photo $photo)
     {
         if ($this->file) {
-            $url = Photo::PHOTO_PORTFOLIO_PATH . $this->file->baseName . '.' . $this->file->extension;
-            $this->file->saveAs('../web' . $url);
-            $photo->picture = $url;
+            FileHandler::deleteFile($photo->getPicture());
+            $url = FileHandler::saveFile($this->file, $photo);
         }
+        $photo->picture = $url;
         $photo->album_id = $this->album_id;
         $photo->updated_at = date("Y-m-d H:i:s");
         $photo->update();

@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\ImageInterface;
 use yii\db\ActiveRecord;
 
 
@@ -18,8 +19,21 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  */
-class Post extends ActiveRecord
+class Post extends ActiveRecord implements ImageInterface
 {
-    const PICTURE_POST_PATH = '/image/uploads/post/';
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
 
+    /**
+     * @return string
+     */
+    public function getDir()
+    {
+        return '/image/uploads/post/';
+    }
 }

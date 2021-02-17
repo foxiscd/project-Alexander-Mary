@@ -3,6 +3,7 @@
 
 namespace app\models;
 
+use app\models\ImageInterface;
 use yii\db\ActiveRecord;
 use Yii;
 
@@ -16,9 +17,8 @@ use Yii;
  * @property string $picture
  * @property string $album_id
  */
-class Photo extends ActiveRecord
+class Photo extends ActiveRecord implements ImageInterface
 {
-    const PHOTO_PORTFOLIO_PATH = '/image/uploads/portfolio/';
 
     /**
      * @param string $url
@@ -51,11 +51,29 @@ class Photo extends ActiveRecord
         return $photo->delete();
     }
 
+    /**
+     * @return bool
+     */
     public function deleteAlbumId()
     {
         $this->album_id = 0;
         return $this->save();
     }
 
+    /**
+     * @return string
+     */
+    public function getPicture()
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDir()
+    {
+        return '/image/uploads/portfolio/';
+    }
 
 }
